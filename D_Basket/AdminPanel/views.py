@@ -1,7 +1,13 @@
 from django.shortcuts import render
+from django.views import generic
+from .models import Customer
 
 # Create your views here.
 
-def loadHome(request):
-	template_name = 'AdminPanel/home.html'
-	return render(request,template_name,)
+class CustomerCreate(generic.CreateView):
+	models = Customer
+	fields = ['name','email_id','subscribe']
+	template_name = "AdminPanel/customer_form.html"
+	
+	def get_queryset(self):
+		return Customer.objects.all()
