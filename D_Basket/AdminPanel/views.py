@@ -3,12 +3,13 @@ from django.views import generic
 from .models import Customer
 from django.core.urlresolvers import reverse_lazy
 
-# Create your views here.
-# class IndexView(generic.ListView):
-# 	template_name = "AdminPanel/index.html"
-# 	context_object_name = 'all_customers'
-# 	def get_queryset(self):
-# 		return Customer.objects.all()
+#Create your views here.
+#
+class IndexView(generic.ListView):
+	template_name = "AdminPanel/customer_list.html"
+	context_object_name = 'customer_list'
+	def get_queryset(self):
+		return Customer.objects.all()
 
 class CreateCustomer(generic.CreateView):
 	model = Customer

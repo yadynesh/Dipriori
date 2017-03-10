@@ -1,0 +1,53 @@
+{% extends "AdminPanel/index.html" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" 
+	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% endblock stylesheets %}
+
+{% block scripts %}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" 
+	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>	
+{% endblock scripts %}
+
+{% block content %}
+	<div class="container">
+		<table class="table table-hover table-bordered " id="customerTable">
+			<thead>
+				<tr>
+					<th>Customer Name</th>
+					<th>Email Address</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for customer in customer_list  %}
+					<tr>
+						<td>{{customer.name}}</td>
+						<td>{{customer.email_id}}</td>
+						<td>
+							<a href="{% url 'adminpanel:update-customer' customer.pk %}">
+								<span class="glyphicon glyphicon-edit" aria-hidden="true"/>
+							</a>
+						</td>
+						<td>
+							<a href="{% url 'adminpanel:delete-customer' customer.pk %}">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"/>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+<script>
+$(document).ready(function(){
+    $('#customerTable').dataTable();
+});
+</script>
+{% endblock content %}
