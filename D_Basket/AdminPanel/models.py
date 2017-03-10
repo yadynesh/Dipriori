@@ -18,7 +18,7 @@ class Customer(models.Model):
 		return self.name + "-" + self.email_id + "-" + str(self.subscribe)
 
 	def get_absolute_url(self):
-		return reverse('adminpanel:add-customer')
+		return reverse('adminpanel:customer-details',kwargs = {'pk' : self.pk})
 
 
 class Item(models.Model):
