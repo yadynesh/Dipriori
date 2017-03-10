@@ -20,7 +20,7 @@ class UpdateCustomer(generic.UpdateView):
 
 class DeleteCustomer(generic.DeleteView):
 	model = Customer
-	success_url = reverse_lazy('adminpanel:customer-details')
+	success_url = reverse_lazy('adminpanel:add-customer')
 
 class CustomerDetails(generic.DetailView):
 	model = Customer
