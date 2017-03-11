@@ -13,6 +13,13 @@
 {% endblock scripts %}
 
 {% block content %}
+	<div class="col-sm-offset-2 col-md-offset-1">
+		<a href="{% url 'adminpanel:add-customer' %}">
+			Add Customer
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"/>
+		</a>
+	</div>
+	<br/>
 	<div class="container">
 		<table class="table table-hover table-bordered " id="customerTable">
 			<thead>

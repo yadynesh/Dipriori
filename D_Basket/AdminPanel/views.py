@@ -13,15 +13,15 @@ class IndexView(generic.ListView):
 
 class CreateCustomer(generic.CreateView):
 	model = Customer
-	fields = ['name','email_id','subscribe']
+	fields = ['first_name', 'last_name', 'email_id', 'subscribe']
 	
 class UpdateCustomer(generic.UpdateView):
 	model = Customer
-	fields = ['name','email_id','subscribe']
+	fields = ['first_name', 'last_name', 'email_id', 'subscribe']
 
 class DeleteCustomer(generic.DeleteView):
 	model = Customer
-	success_url = reverse_lazy('adminpanel:add-customer')
+	success_url = reverse_lazy('adminpanel:list-customers')
 
 class CustomerDetails(generic.DetailView):
 	model = Customer

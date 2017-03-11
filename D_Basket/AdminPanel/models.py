@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 # Create your models here.
 
 class Admin(models.Model):
@@ -10,15 +11,19 @@ class Admin(models.Model):
 		return self.username
 
 class Customer(models.Model):
-	name = models.CharField(max_length = 100, verbose_name = 'Customer Name')
-	email_id = models.EmailField(max_length = 40, verbose_name = 'Email address')
+	first_name = models.CharField(max_length = 100, verbose_name = 'First Name')
+	last_name = models.CharField(max_length = 100, verbose_name = 'Last Name')
+	email_id = models.EmailField(max_length = 100, verbose_name = 'Email address')
+	join_date = models.DateTimeField(default = timezone.now, editable = False)
+	last_modified = models.DateTimeField(auto_now = True)
 	subscribe = models.BooleanField(default = False)
 
 	def __str__(self):
-		return self.name + "-" + self.email_id + "-" + str(self.subscribe)
+		return self.first_name + " " + self.last_name + "----" + self.email_id + "----" + str(self.join_date) + "----" \
+		+ str(self.last_modified) + "----" + str(self.subscribe)
 
 	def get_absolute_url(self):
-		return reverse('adminpanel:customer-details',kwargs = {'pk' : self.pk})
+		return reverse('adminpanel:list-customers')
 
 
 class Item(models.Model):
