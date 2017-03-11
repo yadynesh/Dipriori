@@ -16,7 +16,7 @@ class Customer(models.Model):
 	email_id = models.EmailField(max_length = 100, verbose_name = 'Email address')
 	join_date = models.DateTimeField(default = timezone.now, editable = False)
 	last_modified = models.DateTimeField(auto_now = True)
-	subscribe = models.BooleanField(default = False)
+	subscribe = models.BooleanField(default = False, verbose_name = 'Subscribed')
 
 	def __str__(self):
 		return self.first_name + " " + self.last_name + "----" + self.email_id + "----" + str(self.join_date) + "----" \
