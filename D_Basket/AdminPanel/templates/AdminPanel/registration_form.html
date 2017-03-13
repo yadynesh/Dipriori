@@ -1,0 +1,20 @@
+{% extends "AdminPanel/index.html" %}
+{% block title %}
+	Register Admin
+{% endblock title %}
+
+{% block content %}
+<div class="panel panel-default col-md-offset-3 col-md-5">
+	<div class="panel-body col-sm-12">
+		<form action="" method="POST" role="form">
+			{% csrf_token %}
+			<legend>Register Admin</legend>
+		
+			{% include "AdminPanel/form_template.html" %}
+		
+			
+			<button type="submit" class="btn btn-primary  col-md-offset-5">Submit</button>
+		</form>
+	</div>
+</div>
+{% endblock content %}

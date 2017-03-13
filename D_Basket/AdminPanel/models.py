@@ -28,6 +28,7 @@ class Customer(models.Model):
 
 class Item(models.Model):
 	item_name = models.CharField(max_length = 50, verbose_name = 'Item Name')
+	stocks = models.IntegerField()
 
 	def __str__(self):
 		return str(self.pk) + "-"+ self.item_name
