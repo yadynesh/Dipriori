@@ -6,6 +6,9 @@ from django.utils import timezone
 class Admin(models.Model):
 	username = models.CharField(max_length = 20)
 	password = models.CharField(max_length = 20)
+	first_name = models.CharField(max_length = 100, verbose_name = 'First Name')
+	last_name = models.CharField(max_length = 100, verbose_name = 'Last Name')
+	email_id = models.EmailField(max_length = 100, verbose_name = 'Email address')
 
 	def __str__(self):
 		return self.username

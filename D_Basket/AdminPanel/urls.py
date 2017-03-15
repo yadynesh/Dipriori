@@ -4,7 +4,7 @@ app_name = 'adminpanel'
 
 urlpatterns = [
    #/emp/customer/list
-   url(r'^home', views.AdminFormView.as_view() , name='home'),
+   #url(r'^home', views.AdminFormView.as_view() , name='home'),
 
    url(r'^customer/list/$', views.IndexView.as_view() , name='list-customers'),
 
