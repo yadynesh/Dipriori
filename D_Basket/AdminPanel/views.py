@@ -3,13 +3,15 @@ from django.views import generic
 from django.views.generic import View
 from .models import Customer
 from django.core.urlresolvers import reverse_lazy
+
 # from django.contrib.auth import authenticate,login 
 #from .forms import AdminForm
 #authenticate takes username and passoword and verifies it in database and login is for session
 
 #Create your views here.
 #
-class IndexView(generic.ListView):
+
+class CustomerListView(generic.ListView):
 	template_name = "AdminPanel/customer_list.html"
 	context_object_name = 'customer_list'
 	def get_queryset(self):
@@ -31,13 +33,15 @@ class CustomerDetails(generic.DetailView):
 	model = Customer
 	template_name = "AdminPanel/customer-details.html"
 
-# class AdminFormView(View):
+
+
+
+class AdminFormView(View):
 
 	
-# 	def get(self, request, *args, **kwargs):
-# 		template = "AdminPanel/registration_form.html"
-# 		admin_form = AdminForm(None)
-# 		return render(request, template, {'form':admin_form})
+	def get(self, request, *args, **kwargs):
+		template = "AdminPanel/home.html"
+		return render(request, template,)
 
 
 # 	def post(self, request, *args, **kwargs):
