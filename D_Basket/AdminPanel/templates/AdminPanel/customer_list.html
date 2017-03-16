@@ -8,7 +8,6 @@
 {% endblock stylesheets %}
 
 {% block scripts %}
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" 
 	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>	
 {% endblock scripts %}
@@ -27,12 +26,12 @@
 	</div>
 	<br/>
 	<div class="container">
-		<table class="table table-hover table-bordered " id="customerTable">
+		<table class="table table-hover table-bordered dt-responsive" id="customerTable">
 			<thead>
 				<tr>
 					<th>First Name</th>
 					<th>Last Name</th>
-					<th>Email Address</th>
+					<th class="col-sm-visible-false">Email Address</th>
 					<th>Join Date</th>
 					<th>Last Accessed</th>
 					<th>Subscribed</th>
