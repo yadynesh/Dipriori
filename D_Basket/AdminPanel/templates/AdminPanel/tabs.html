@@ -1,0 +1,8 @@
+<ul class="nav navbar-nav">
+	<li class="{% if active_tab == 'add-customer' %} active{% endif %}"><a href="{% url 'adminpanel:add-customer' %}">Add Customer</a></li>
+
+	<li class="{% if active_tab == 'list-customers' %} active{% endif %}"><a href="{% url 'adminpanel:list-customers' %}">List</a></li>
+</ul>
+
+
+

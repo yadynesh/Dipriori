@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block stylesheets %}
 	<link rel="stylesheet" 
 	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
@@ -13,55 +12,37 @@
 	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>	
 {% endblock scripts %}
 
-{% block tabs %}
-	{% include "AdminPanel/tabs.html" with active_tab='list-customers' %}
-{% endblock tabs %}
-
 {% block content %}
 	
 	<div class="col-sm-offset-2 col-md-offset-1">
-		<a href="{% url 'adminpanel:add-customer' %}">
-			Add Customer
+		<a href="{% url 'adminpanel:add-item' %}">
+			Add Item
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"/>
 		</a>
 	</div>
 	<br/>
 	<div class="container">
-		<table class="table table-hover table-bordered " id="customerTable">
+		<table class="table table-hover table-bordered " id="itemTable">
 			<thead>
 				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email Address</th>
-					<th>Join Date</th>
-					<th>Last Accessed</th>
-					<th>Subscribed</th>
+					<th>Item Name</th>
+					<th>Stock</th>
 					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for customer in customer_list  %}
+				{% for item in item_list  %}
 					<tr>
-						<td>{{customer.first_name}}</td>
-						<td>{{customer.last_name}}</td>
-						<td>{{customer.email_id}}</td>
-						<td>{{customer.join_date}}</td>
-						<td>{{customer.last_modified}}</td>
+						<td>{{item.item_name}}</td>
+						<td>{{item.stocks}}</td>
 						<td>
-							{% if customer.subscribe  %}
-								Yes
-							{% else %}
-								No
-							{% endif %}
-						</td>
-						<td>
-							<a href="{% url 'adminpanel:update-customer' customer.pk %}">
+							<a href="{% url 'adminpanel:update-item' item.pk %}">
 								<span class="glyphicon glyphicon-edit" aria-hidden="true"/>
 							</a>
 						</td>
 						<td>
-							<a href="{% url 'adminpanel:delete-customer' customer.pk %}">
+							<a href="{% url 'adminpanel:delete-item' item.pk %}">
 								<span class="glyphicon glyphicon-trash" aria-hidden="true"/>
 							</a>
 						</td>
@@ -74,7 +55,7 @@
 
 <script>
 $(document).ready(function(){
-    $('#customerTable').dataTable();
+    $('#itemTable').dataTable();
 });
 </script>
 {% endblock content %}

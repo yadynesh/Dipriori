@@ -14,18 +14,9 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			{% if user.is_authenticated  %}
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
-
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="{% url 'adminpanel:add-customer' %}">Add</a></li>
-						<li><a href="{% url 'adminpanel:list-customers' %}">Customers</a></li>
-					</ul>
-					<form class="navbar-form navbar-left" role="search">
-						{% csrf_token %}
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>
+					{% block tabs %}
+						
+					{% endblock tabs %}
 			{% endif %}
 					<ul class="nav navbar-nav navbar-right">
 						{% if user.is_authenticated  %}

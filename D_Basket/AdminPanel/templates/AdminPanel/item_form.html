@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 {% block title %}
-	Add Customer
+	Item
 {% endblock title %}
-
-{% block tabs %}
-	{% include "AdminPanel/tabs.html" with active_tab='add-customer' %}
-{% endblock tabs %}
 
 {% block content %}
 <div class="panel panel-default col-md-offset-3 col-md-5">
 	<div class="panel-body col-sm-12">
 		<form action="" method="POST" role="form">
 			{% csrf_token %}
-			<legend>Add/Update Customer</legend>
+			<legend>Add/Update Item</legend>
 		
 			{% include "AdminPanel/form_template.html" %}
 		
