@@ -1,7 +1,7 @@
 from .models import Admin #importing the base user class
 
 from django import forms #use to tweek what we want to display on the form
-
+from django.contrib.auth.models import User
 from registration.forms import RegistrationForm
 
 class AdminForm(RegistrationForm):
@@ -45,3 +45,10 @@ class AdminForm(RegistrationForm):
 			)
 		)
 
+
+class UserForm(forms.ModelForm):
+	password =  forms.CharField(widget = forms.PasswordInput)
+
+	class Meta:
+		model = User
+		fields = ['username','email','password']

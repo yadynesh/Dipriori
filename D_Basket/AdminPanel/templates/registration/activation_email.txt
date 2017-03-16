@@ -1,13 +1,19 @@
 {% load i18n %}
-{% trans "Activate account at" %} {{ site.name }}:
 
-Hello there!
+{% blocktrans %}
+You (or someone pretending to be you) have asked to register an account at
+D-BASKET.  If this wasn't you, please ignore this email
+and your address will be removed from our records.
+{% endblocktrans %}
 
-Click the link below to activate your account.
+{% blocktrans %}
+To activate this account, please click the following link within the next
+{{ expiration_days }} days:
+{% endblocktrans %}
 
-http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+http://localhost:8000{% url 'registration_activate' activation_key %}
 
-
-{% blocktrans %}The above link is valid for {{ expiration_days }} days.{% endblocktrans %}
-
-D-BASKET
+{% blocktrans%}
+Sincerely,
+D-BASKET Management
+{% endblocktrans %}
