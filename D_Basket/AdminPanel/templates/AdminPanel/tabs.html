@@ -1,8 +1,32 @@
 <ul class="nav navbar-nav">
-	<li class="{% if active_tab == 'add-customer' %} active{% endif %}"><a href="{% url 'adminpanel:add-customer' %}">Add Customer</a></li>
-
-	<li class="{% if active_tab == 'list-customers' %} active{% endif %}"><a href="{% url 'adminpanel:list-customers' %}">List</a></li>
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<li class="{% if active_tab == 'add-customer' %} active{% endif %}">
+				<a href="{% url 'adminpanel:add-customer' %}">
+					<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add Customers&nbsp;&nbsp;
+				</a>
+			</li>
+			<li class="{% if active_tab == 'list-customers' %} active{% endif %}">
+				<a href="{% url 'adminpanel:list-customers' %}">
+					<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;List Items
+				</a>
+			</li>
+		</ul>
+	</li>
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Items<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<li class="{% if active_tab == 'add-item' %} active{% endif %}">
+				<a href="{% url 'adminpanel:add-item' %}">
+					<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add Items&nbsp;&nbsp;
+				</a>
+			</li>
+			<li class="{% if active_tab == 'list-items' %} active{% endif %}">
+				<a href="{% url 'adminpanel:list-items' %}">
+					<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;List Items
+				</a>
+			</li>
+		</ul>
+	</li>
 </ul>
-
-
-

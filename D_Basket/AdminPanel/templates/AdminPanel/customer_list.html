@@ -18,8 +18,8 @@
 
 {% block content %}
 	
-	<div class="col-sm-offset-2 col-md-offset-1">
-		<a href="{% url 'adminpanel:add-customer' %}">
+	<div class="col-xs-offset-4 col-md-offset-9">
+		<a class ="btn btn-danger" href="{% url 'adminpanel:add-customer' %}">
 			Add Customer
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"/>
 		</a>
@@ -31,10 +31,10 @@
 				<tr>
 					<th>First Name</th>
 					<th>Last Name</th>
-					<th class="col-sm-visible-false">Email Address</th>
-					<th>Join Date</th>
-					<th>Last Accessed</th>
-					<th>Subscribed</th>
+					<th class="hidden-xs">Email Address</th>
+					<th class="hidden-xs">Join Date</th>
+					<th class="hidden-xs">Last Accessed</th>
+					<th >Subscribed</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -44,9 +44,9 @@
 					<tr>
 						<td>{{customer.first_name}}</td>
 						<td>{{customer.last_name}}</td>
-						<td>{{customer.email_id}}</td>
-						<td>{{customer.join_date}}</td>
-						<td>{{customer.last_modified}}</td>
+						<td class="hidden-xs">{{customer.email_id}}</td>
+						<td class="hidden-xs">{{customer.join_date}}</td>
+						<td class="hidden-xs">{{customer.last_modified}}</td>
 						<td>
 							{% if customer.subscribe  %}
 								Yes

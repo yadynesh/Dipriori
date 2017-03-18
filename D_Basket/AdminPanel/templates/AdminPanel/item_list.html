@@ -12,6 +12,11 @@
 	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>	
 {% endblock scripts %}
 
+{% block tabs %}
+	{% include "AdminPanel/tabs.html" with active_tab='list-items' %}
+{% endblock tabs %}
+
+
 {% block content %}
 	
 	<div class="col-sm-offset-2 col-md-offset-1">
