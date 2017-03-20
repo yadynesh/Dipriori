@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views import generic
 from django.views.generic import View
-from .models import Customer
+from .models import Item,Transaction
+from .forms import TransactionForm
 from django.core.urlresolvers import reverse_lazy
 
 class TransactionListView(generic.ListView):
@@ -10,9 +11,33 @@ class TransactionListView(generic.ListView):
 	def get_queryset(self):
 		return Transaction.objects.all()
 
-class CreateTransaction(generic.CreateView):
-	model = Transaction
-	fields = []
+class CreateTransaction(View):
+	
+	def get(self, request, *args, **kwargs):
+		the_form = TransactionForm(None)
+		context = {
+			'form' : the_form
+		}
+		template_name = "AdminPanel/create_transactions.html"
+		return render(request, template_name, context)
+
+	def post(self, request, *args, **kwargs):
+		the_form = TransactionForm(request.POST)
+
+		if the_form.is_valid():
+
+			transaction_count = Transaction.objects.count()
+			customer = the_form.cleaned_data['cust_id']
+			transaction_id = 1
+			if transaction_count != 0:
+				transaction_id = Transaction.objects.latest('trans_id').trans_id + 1
+
+			item_queryset = the_form.cleaned_data['items']
+			for item in item_queryset:
+				transaction = Transaction(trans_id = transaction_id,item_id = item,cust_id = customer)
+				transaction.save()
+
+		return render(request, "AdminPanel/create_transactions.html",)
 	
 class UpdateCustomer(generic.UpdateView):
 	model = Transaction

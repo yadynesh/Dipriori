@@ -1,6 +1,21 @@
 from django.contrib import admin
-from . import models
-# Register your models here.
-admin.site.register(models.Item)
-admin.site.register(models.Transaction)
-admin.site.register(models.Customer)
+from .models import Customer,Item,Transaction
+from .forms import TransactionForm
+
+
+class TransactionAdmin(admin.ModelAdmin):
+    form = TransactionForm
+
+
+class ItemAdmin(admin.ModelAdmin):
+    pass
+
+
+class CustomerAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Item,ItemAdmin)
+admin.site.register(Customer,CustomerAdmin)
+admin.site.register(Transaction,TransactionAdmin)
+

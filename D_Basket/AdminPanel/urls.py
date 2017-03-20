@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required, permission_required
-from . import views,customer_views,item_views
+from . import views,customer_views,item_views,transaction_views
 app_name = 'adminpanel'
 
 urlpatterns = [
@@ -20,8 +20,11 @@ urlpatterns = [
 
    #/emp/customer/
    #url(r'^customer/(?P<pk>[0-9]+)/details$', views.CustomerDetails.as_view() , name = 'customer-details'),
-   #
-   #
+  
+
+
+  
+   #/emp/item/list
     url(r'^item/list/$', login_required(item_views.ItemListView.as_view()) , name='list-items'),
 
    #/emp/item/add
@@ -32,5 +35,11 @@ urlpatterns = [
 
    #/emp/item/delete/<pk>
    url(r'^item/(?P<pk>[0-9]+)/delete/$', login_required(item_views.DeleteItem.as_view()) , name = 'delete-item'),
+
+
+
+
+   #/emp/transaction/add/
+   url(r'^transactions/add/$', login_required(transaction_views.CreateTransaction.as_view()) , name = 'add-transaction'),
 
 ]
