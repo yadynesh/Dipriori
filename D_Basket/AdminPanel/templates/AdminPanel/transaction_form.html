@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% block title %}
+	Add Transaction
+{% endblock title %}
+
+{% block tabs %}
+	{% include "AdminPanel/tabs.html" with active_tab='add-transaction' %}
+{% endblock tabs %}
 
 {% block content %}
 	<div class="panel panel-default col-md-offset-3 col-md-5">
@@ -8,9 +15,11 @@
 				<legend>Add Transaction</legend>
 				
 				<div class="form-group">
-				{{form.as_p}}
+					{{form.as_p}}
 				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<div class="col-md-offset-5">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
 			</form>
 		</div>
 	</div>

@@ -25,7 +25,7 @@ urlpatterns = [
 
   
    #/emp/item/list
-    url(r'^item/list/$', login_required(item_views.ItemListView.as_view()) , name='list-items'),
+   url(r'^item/list/$', login_required(item_views.ItemListView.as_view()) , name='list-items'),
 
    #/emp/item/add
    url(r'^item/add/$', login_required(item_views.CreateItem.as_view()) , name = 'add-item'),
@@ -41,5 +41,14 @@ urlpatterns = [
 
    #/emp/transaction/add/
    url(r'^transactions/add/$', login_required(transaction_views.CreateTransaction.as_view()) , name = 'add-transaction'),
+
+   #/emp/transaction/list
+   url(r'^transaction/list/$', login_required(transaction_views.TransactionListView.as_view()) , name='list-transactions'),
+
+   #/emp/transaction/<pk>
+   url(r'^transaction/(?P<pk>[0-9]+)/$', login_required(transaction_views.UpdateTransaction.as_view()) , name = 'update-transaction'),
+
+   #/emp/customer/delete/<pk>
+   url(r'^transaction/(?P<pk>[0-9]+)/delete/$', login_required(transaction_views.DeleteTransaction.as_view()) , name = 'delete-transaction'),
 
 ]

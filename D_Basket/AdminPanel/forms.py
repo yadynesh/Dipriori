@@ -16,9 +16,8 @@ class TransactionForm(forms.ModelForm):
 	class Meta:
 		model = Transaction
 		fields = ['cust_id']
-		# widgets = {
-  #           'cust_id': SearchableSelect(model='AdminPanel.', search_field='name', many=True, limit=10)
-  #       }
+		
+		
 class AdminForm(RegistrationForm):
 	username = forms.CharField(
 			label = "Username",

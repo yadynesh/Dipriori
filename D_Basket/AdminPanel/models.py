@@ -47,3 +47,6 @@ class Transaction(models.Model):
 
 	def __str__(self):
 		return str(self.trans_id) + "-" + str(self.cust_id) + "-" + str(self.id)
+
+	def get_absolute_url(self):
+		return reverse('adminpanel:list-transactions')

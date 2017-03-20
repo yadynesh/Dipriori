@@ -18,7 +18,7 @@ class CreateTransaction(View):
 		context = {
 			'form' : the_form
 		}
-		template_name = "AdminPanel/create_transactions.html"
+		template_name = "AdminPanel/transaction_form.html"
 		return render(request, template_name, context)
 
 	def post(self, request, *args, **kwargs):
@@ -37,13 +37,15 @@ class CreateTransaction(View):
 				transaction = Transaction(trans_id = transaction_id,item_id = item,cust_id = customer)
 				transaction.save()
 
-		return render(request, "AdminPanel/create_transactions.html",)
-	
-class UpdateCustomer(generic.UpdateView):
-	model = Transaction
-	fields = ['first_name', 'last_name', 'email_id', 'subscribe']
+			return redirect('adminpanel:list-transactions')
 
-class DeleteCustomer(generic.DeleteView):
+		return reverse(request, "AdminPanel/transaction_form.html",)
+	
+class UpdateTransaction(generic.UpdateView):
+	model = Transaction
+	fields = ['cust_id','item_id']
+
+class DeleteTransaction(generic.DeleteView):
 	model = Transaction
 	success_url = reverse_lazy('adminpanel:list-transactions')
 
