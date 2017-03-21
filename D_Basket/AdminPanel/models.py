@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+
 # Create your models here.
 
 # class Admin(models.Model):
