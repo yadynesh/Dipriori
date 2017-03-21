@@ -4,6 +4,7 @@ from django.views.generic import View
 from .models import Item,Transaction
 from .forms import TransactionForm
 from django.core.urlresolvers import reverse_lazy
+import pandas
 
 class TransactionListView(generic.ListView):
 	template_name = "AdminPanel/transaction_list.html"
