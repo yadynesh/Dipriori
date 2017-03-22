@@ -12,32 +12,29 @@ class AdminFormView(View):
 		template = "AdminPanel/home.html"
 		return render(request, template,)
 
-
-# def graph(request):
-#     fig = Figure()
-#     #ax = fig.add_subplot(111)
-#     data_df = pd.read_csv("C:/Users/yadynesh/Final_Project/original1.csv")
-#     data_df = pd.DataFrame(data_df)
-#     one_item_count = data_df.sum(axis=0)
-#     print("One Item Count:\n\n"+str(one_item_count))
-#    	#one_item_count.plot()
-#     frequent_one_item_count = one_item_count[one_item_count >= 1000]
-#     frequent_one_item_count.plot()
-#     #plt.show()
-#     canvas = FigureCanvas(fig)
-#     response = HttpResponse( content_type = 'image/png')
-#     canvas.print_png(response)
-#     return response
-
-def graph(request):
+def graph(request, itemset):
     fig = Figure()
-    #ax = fig.add_subplot(111)
-    data_df = pd.read_csv("C:/Users/yadynesh/Final_Project/original1.csv")
-    data_df = pd.DataFrame(data_df)
+    fig.set_size_inches(15, 6, forward=True)
+    ax = fig.add_subplot(111)
+    final_itemset = pd.Series()
+    print("itemset="+str(itemset))
     
-    one_item_count = data_df.sum(axis=0)
-    data_df.plot()
-    print(type(one_item_count))
+    if int(itemset) == 1:
+    	final_itemset = pd.Series.from_csv("C:/Users/yadynesh/Final_Project/D_Basket/final_one_itemset.csv")
+
+    	print(final_itemset)
+    	final_itemset.T.plot.bar(ax=ax)
+
+    if int(itemset) == 2:
+    	final_itemset = pd.Series.from_csv("C:/Users/yadynesh/Final_Project/D_Basket/final_two_itemset.csv")
+    	final_itemset= final_itemset[final_itemset>50000]
+    	final_itemset.plot.bar(ax=ax)
+
+    if int(itemset) == 3:
+    	final_itemset = pd.Series.from_csv("C:/Users/yadynesh/Final_Project/D_Basket/final_three_itemset.csv")
+    	final_itemset= final_itemset[final_itemset>40000]
+    	final_itemset.plot.bar(ax=ax)
+
     canvas = FigureCanvas(fig)
     response = HttpResponse( content_type = 'image/png')
     canvas.print_png(response)

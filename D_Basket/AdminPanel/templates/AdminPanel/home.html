@@ -4,6 +4,19 @@
 	Home
 {% endblock title %}
 
+{% block tabs %}
+	{% include "AdminPanel/tabs.html" with active_tab='home' %}
+{% endblock tabs %}
+
 {% block content %}
-	This is home
+	
+	<div >
+		<img src="{%url 'adminpanel:generate-graph' 1 %}"/>
+	</div>
+	<div >
+		<img src="{%url 'adminpanel:generate-graph' 2 %}"/>
+	</div>
+	<div >
+		<img src="{%url 'adminpanel:generate-graph' 3 %}"/>
+	</div>
 {% endblock content %}
