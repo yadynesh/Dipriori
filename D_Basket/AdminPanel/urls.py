@@ -51,4 +51,6 @@ urlpatterns = [
    #/emp/customer/delete/<pk>
    url(r'^transaction/(?P<pk>[0-9]+)/delete/$', login_required(transaction_views.DeleteTransaction.as_view()) , name = 'delete-transaction'),
 
+    url(r'^transaction/graph/$', login_required(views.graph) , name = 'get-graph'),
+
 ]
