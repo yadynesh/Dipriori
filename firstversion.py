@@ -248,11 +248,12 @@ for inx in final_three_itemset.index:
 # In[91]:
 
 print(association_rules)
-
+final_one_itemset.to_csv(path="C:/Users/yadynesh/Final_Project/D_Basket/final_one_itemset.csv")
+final_two_items.to_csv(path="C:/Users/yadynesh/Final_Project/D_Basket/final_two_itemset.csv")
+final_three_itemset.to_csv(path="C:/Users/yadynesh/Final_Project/D_Basket/final_three_itemset.csv")
 
 # In[ ]:
-final_three_itemset.plot.bar()
-plt.show()
+
 
 
 

@@ -9,14 +9,17 @@
 {% endblock tabs %}
 
 {% block content %}
-	
-	<div >
+
+	<div class="text-center">
+		<h3>Frequent One Itemset</h3>
 		<img src="{%url 'adminpanel:generate-graph' 1 %}"/>
-	</div>
-	<div >
+	</div><br/>
+	<div class="text-center">
+		<h3>Frequent Two Itemset</h3>
 		<img src="{%url 'adminpanel:generate-graph' 2 %}"/>
-	</div>
-	<div >
+	</div><br/>
+	<div class="text-center">
+		<h3>Frequent Three Itemset</h3>
 		<img src="{%url 'adminpanel:generate-graph' 3 %}"/>
 	</div>
 {% endblock content %}
