@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from shortener.models import MagicUrl
+from . import firstversion,secondversion
 
 class Command(BaseCommand):
     help = 'Run the client to calculate association-rules'
@@ -11,5 +11,5 @@ class Command(BaseCommand):
         
 
     def handle(self, *args, **options):
-        print(options)
-        return MagicUrl.objects.refresh_shortcodes(items = options['items'])
+        exec('firstversion.py')
+        return "done"

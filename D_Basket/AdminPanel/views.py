@@ -16,7 +16,9 @@ class AdminFormView(View):
 
 def graph(request, itemset):
     fig = Figure()
-    
+    from django.core.management import call_command
+    data = call_command('runclient')
+
     fig.set_size_inches(15, 6, forward=True)
 
     ax = fig.add_subplot(111)
