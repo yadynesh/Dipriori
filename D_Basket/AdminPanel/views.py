@@ -1,10 +1,12 @@
 from django.views.generic import View
 from django.shortcuts import render
 import matplotlib
+
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from django.http import HttpResponse
 import pandas as pd
+import seaborn
 
 
 class AdminFormView(View):
@@ -14,8 +16,13 @@ class AdminFormView(View):
 
 def graph(request, itemset):
     fig = Figure()
+    
     fig.set_size_inches(15, 6, forward=True)
+
     ax = fig.add_subplot(111)
+    fig.subplots_adjust(bottom=0.35)
+    
+
     final_itemset = pd.Series()
     print("itemset="+str(itemset))
     
