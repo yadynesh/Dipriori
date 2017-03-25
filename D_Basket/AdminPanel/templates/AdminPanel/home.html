@@ -10,16 +10,23 @@
 
 {% block content %}
 
+	<div class="col-xs-offset-4 col-md-offset-9">
+		<a class ="btn btn-danger" href="{% url 'adminpanel:runclient' %}">
+			Run Apriori Client
+			<span class="glyphicon glyphicon-play" aria-hidden="true"/>
+		</a>
+	</div>
 	<div class="text-center">
 		<h3>Frequent One Itemset</h3>
-		<img src="{%url 'adminpanel:generate-graph' 1 %}"/>
+		<img src="{%url 'adminpanel:generate-barchart' 1 %}"/>
 	</div><br/>
 	<div class="text-center">
 		<h3>Frequent Two Itemset</h3>
-		<img src="{%url 'adminpanel:generate-graph' 2 %}"/>
+		<img src="{%url 'adminpanel:generate-barchart' 2 %}"/>
 	</div><br/>
 	<div class="text-center">
 		<h3>Frequent Three Itemset</h3>
-		<img src="{%url 'adminpanel:generate-graph' 3 %}"/>
+		<img src="{%url 'adminpanel:generate-barchart' 3 %}"/>
 	</div>
+
 {% endblock content %}

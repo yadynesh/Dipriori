@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required, permission_required
-from . import views,customer_views,item_views,transaction_views
+from . import views,customer_views,item_views,transaction_views,graph_views
 app_name = 'adminpanel'
 
 urlpatterns = [
@@ -40,7 +40,7 @@ urlpatterns = [
 
 
    #/emp/transaction/add/
-   url(r'^transactions/add/$', login_required(transaction_views.CreateTransaction.as_view()) , name = 'add-transaction'),
+   url(r'^transaction/add/$', login_required(transaction_views.CreateTransaction.as_view()) , name = 'add-transaction'),
 
    #/emp/transaction/list
    url(r'^transaction/list/$', login_required(transaction_views.TransactionListView.as_view()) , name='list-transactions'),
@@ -48,9 +48,16 @@ urlpatterns = [
    #/emp/transaction/<pk>
    url(r'^transaction/(?P<pk>[0-9]+)/$', login_required(transaction_views.UpdateTransaction.as_view()) , name = 'update-transaction'),
 
-   #/emp/customer/delete/<pk>
+   #/emp/transaction/delete/<pk>
    url(r'^transaction/(?P<pk>[0-9]+)/delete/$', login_required(transaction_views.DeleteTransaction.as_view()) , name = 'delete-transaction'),
 
-    url(r'^graph/(?P<itemset>[0-9]+)/$', login_required(views.graph) , name = 'generate-graph'),
+
+
+
+   #/emp/graph/bar/<itemset>
+   url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
+
+
+   url(r'^runclient/$', login_required(views.runAprioriClient) , name = 'runclient'),
 
 ]
