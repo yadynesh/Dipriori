@@ -9,24 +9,30 @@
 {% endblock tabs %}
 
 {% block content %}
-
-	<div class="col-xs-offset-4 col-md-offset-9">
-		<a class ="btn btn-danger" href="{% url 'adminpanel:runclient' %}">
-			Run Apriori Client
-			<span class="glyphicon glyphicon-play" aria-hidden="true"/>
-		</a>
+	
+	<div class="jumbotron">
+		<div class="container text-center">
+			<h1>Welcome To D-BASKET</h1>
+			<p>
+				<a class ="btn btn-primary btn-lg " href="{% url 'adminpanel:runclient' %}">
+					Run Apriori Client
+					<span class="glyphicon glyphicon-play" aria-hidden="true"/>
+				</a>
+			</p>
+		</div>
 	</div>
+	
 	<div class="text-center">
 		<h3>Frequent One Itemset</h3>
-		<img src="{%url 'adminpanel:generate-barchart' 1 %}"/>
+		<img class="img-responsive" alt="Image" src="{%url 'adminpanel:generate-barchart' 1 %}"/>
 	</div><br/>
 	<div class="text-center">
 		<h3>Frequent Two Itemset</h3>
-		<img src="{%url 'adminpanel:generate-barchart' 2 %}"/>
+		<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-barchart' 2 %}"/>
 	</div><br/>
 	<div class="text-center">
 		<h3>Frequent Three Itemset</h3>
-		<img src="{%url 'adminpanel:generate-barchart' 3 %}"/>
+		<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-barchart' 3 %}"/>
 	</div>
 
 {% endblock content %}

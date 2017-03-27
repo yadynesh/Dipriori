@@ -24,7 +24,7 @@ print("Minimum support = "+str(minimum_support))
 
 def sendToServer(send_bytes):
     host = '127.0.0.1'
-    #host = '169.254.0.153'
+    #host = '192.168.43.31'
     port = 53
     s = socket.socket()
     s.connect((host,port))
@@ -57,7 +57,7 @@ def add_to_final_itemset(final_set,frequent_itemset):
 
 # In[71]:
 while True:
-    transactions = pd.read_csv("C:/Users/yadynesh/Final_Project/Final_Original1.csv",skiprows = range (1,rowskip),nrows = no_of_rows)
+    transactions = pd.read_csv(settings.BASE_DIR+"/AdminPanel/Final_Original1.csv",skiprows = range (1,rowskip),nrows = no_of_rows)
     if len(transactions) != no_of_rows:
         print("\n\n***********Not enough transactions***********\n\n")
         break

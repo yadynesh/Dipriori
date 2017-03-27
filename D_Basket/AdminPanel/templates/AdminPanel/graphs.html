@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Graphs
+{% endblock title %}
+
+{% block tabs %}
+	{% include "AdminPanel/tabs.html" with active_tab='home' %}
+{% endblock tabs %}
+
+{% block content %}
+
+	{% if type == "bar" %}
+
+		<div class="text-center">
+			<h3>Frequent One Itemset</h3>
+			<img class="img-responsive" alt="Image" src="{%url 'adminpanel:generate-barchart' 1 %}"/>
+		</div><br/>
+		<div class="text-center">
+			<h3>Frequent Two Itemset</h3>
+			<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-barchart' 2 %}"/>
+		</div><br/>
+		<div class="text-center">
+			<h3>Frequent Three Itemset</h3>
+			<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-barchart' 3 %}"/>
+		</div>
+
+	{% endif %}
+
+	
+{% endblock content %}

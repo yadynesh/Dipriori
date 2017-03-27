@@ -1,11 +1,12 @@
 from django.conf.urls import url
+
 from django.contrib.auth.decorators import login_required, permission_required
 from . import views,customer_views,item_views,transaction_views,graph_views
 app_name = 'adminpanel'
 
 urlpatterns = [
    #/emp/customer/list
-   url(r'^home', views.AdminFormView.as_view() , name='home'),
+   url(r'^home', login_required(views.AdminFormView.as_view()) , name='home'),
 
    url(r'^customer/list/$', login_required(customer_views.CustomerListView.as_view()) , name='list-customers'),
 
