@@ -195,8 +195,8 @@ while True:
 
 
 # In[87]:
-final_two_itemset = final_two_itemset[final_two_itemset>50000]  
-final_three_itemset = final_three_itemset[final_three_itemset>50000]
+final_two_itemset = final_two_itemset[final_two_itemset>60000]  
+final_three_itemset = final_three_itemset[final_three_itemset>60000]
 
 final_two_items = pd.Series()
 final_two_items = final_two_items.append(final_two_itemset)
@@ -211,9 +211,8 @@ for index1 in final_two_itemset.index:
 
 # In[89]:
 
-association_rules = pd.DataFrame(columns=['rule_leftside','rule_rightside','confidence'])
+association_rules = pd.Series()
 association_list = []
-
 
 for inx in final_three_itemset.index:
     association_list = []
@@ -236,8 +235,8 @@ for inx in final_three_itemset.index:
                 confidence = (final_three_itemset[inx]/final_one_itemset[column1]) * 100 ;
                 #print(confidence)
                 if confidence > 80 :
-                    rule  = pd.DataFrame({'rule_leftside':[column1],'rule_rightside':[inx.replace(column1,'')],'confidence':[confidence]})
-                    association_rules = association_rules.append(rule)
+                    association_list.append(column1)
+                    association_rules  = association_rules.append(pd.Series(inx.replace(column1,''), index=[""+column1]))
                 
      
 
@@ -265,16 +264,15 @@ for inx in final_three_itemset.index:
                 confidence = (final_three_itemset[inx]/final_two_items[column1+","+column2]) * 100 ;
                 #print(confidence)
                 if confidence > 80 :
-                    rule  = pd.DataFrame({'rule_leftside':[""+column1+","+column2],'rule_rightside':[inx.replace(column1,'').replace(column2,'')],'confidence':[confidence]})
-                    association_rules = association_rules.append(rule)
+                    association_rules = association_rules.append(pd.Series(inx.replace(column1,'').replace(column2,''), index=[""+column1+","+column2]))
 # In[91]:
 
 
-association_rules['rule_rightside'] = association_rules['rule_rightside'].apply(clean_three_items)
+association_rules = association_rules.apply(clean_three_items)
 print(association_rules)
 
 
-association_rules.to_csv(path_or_buf=settings.BASE_DIR+"/association_rules.csv")
+association_rules.to_csv(path=settings.BASE_DIR+"/association_rules.csv")
 final_one_itemset.to_csv(path=settings.BASE_DIR+"/final_one_itemset.csv")
 final_two_items.to_csv(path=settings.BASE_DIR+"/final_two_itemset.csv")
 final_three_itemset.to_csv(path=settings.BASE_DIR+"/final_three_itemset.csv")
