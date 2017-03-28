@@ -2,10 +2,14 @@ from django.conf import settings
 from django.views.generic import View
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import pandas as pd
 import seaborn
 
+
+def graph_main(request,type):
+    return render(request,'AdminPanel/graphs.html',{'type':type})
 
 
 def barChart(request, itemset):

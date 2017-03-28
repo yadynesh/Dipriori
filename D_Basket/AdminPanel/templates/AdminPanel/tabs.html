@@ -1,5 +1,18 @@
 <ul class="nav navbar-nav">
 	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;Graphs&nbsp;&nbsp;
+			<b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="{% if active_tab == 'add-item' %} active{% endif %}">
+				<a href="{% url 'adminpanel:generate-graph' "bar" %}">
+					<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Bar Graph&nbsp;&nbsp;
+				</a>
+			</li>
+		</ul>
+	</li>
+	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Transaction<b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<li class="{% if active_tab == 'add-transaction' %} active{% endif %}">

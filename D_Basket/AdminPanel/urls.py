@@ -53,12 +53,12 @@ urlpatterns = [
    url(r'^transaction/(?P<pk>[0-9]+)/delete/$', login_required(transaction_views.DeleteTransaction.as_view()) , name = 'delete-transaction'),
 
 
-
+   url(r'^graph/(?P<type>\w+)/$', login_required(graph_views.graph_main) , name = 'generate-graph'),
 
    #/emp/graph/bar/<itemset>
    url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
 
-
+   #/emp/runclient
    url(r'^runclient/$', login_required(views.runAprioriClient) , name = 'runclient'),
 
 ]
