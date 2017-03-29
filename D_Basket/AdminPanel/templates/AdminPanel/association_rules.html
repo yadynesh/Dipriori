@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block stylesheets %}
+	<link rel="stylesheet" 
+	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% endblock stylesheets %}
+
+{% block scripts %}
+	<script type="text/javascript" 
+	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>	
+{% endblock scripts %}
+
+{% block tabs %}
+	{% include "AdminPanel/tabs.html" with active_tab='association_rules' %}
+{% endblock tabs %}
+
+
+{% block content %}
+	<div class="container">
+		<table class="table table-hover table-bordered dt-responsive" id="associationTable">
+			<thead>
+				<tr>
+					<th>Left Side</th>
+					<th>Right Side</th>
+					<th>Confidence</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for index,association_rule  in association_rules.iterrows  %}
+					<tr>
+						<td>
+							{{ association_rule.rule_leftside }}
+						</td>
+						<td>
+							{{ association_rule.rule_rightside }}
+						</td>
+						<td>
+							{{ association_rule.confidence }}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+<script>
+$(document).ready(function(){
+    $('#associationTable').dataTable();
+});
+</script>
+{% endblock content%}
