@@ -26,6 +26,7 @@
 					<th>Right Side</th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,6 +44,7 @@
 									,{{discount.right_item2.item_name}}
 							{% endif %}
 						</td>
+						
 						<td>
 							<a href="{% url 'adminpanel:update-discount' discount.pk %}">
 								<span class="glyphicon glyphicon-edit" aria-hidden="true"/>
@@ -52,6 +54,20 @@
 							<a href="{% url 'adminpanel:delete-discount' discount.pk %}">
 								<span class="glyphicon glyphicon-trash" aria-hidden="true"/>
 							</a>
+						</td>
+						<td>
+							<form action="{% url 'adminpanel:send-discount-mail' %}" method="POST" role="form">
+								{% csrf_token %}
+								<input type="hidden" class="form-control" name="discount_left" 
+									value="{{discount.left_item1.item_name }}{% if discount.left_item2 != None  %},{{discount.left_item2.item_name}}{% endif %}">
+								<input type="hidden" class="form-control" name="discount_right" 
+									value="{{discount.right_item1.item_name }}{% if discount.right_item2 != None  %},{{discount.right_item2.item_name}}{% endif %}"
+								>
+								
+								<button type="submit" class="btn btn-danger">
+									Send Mail
+								</button>
+							</form>
 						</td>
 					</tr>
 				{% endfor %}

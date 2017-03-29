@@ -5,20 +5,20 @@
 			<b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
-			<li class="{% if active_tab == 'add-item' %} active{% endif %}">
+			<li class="{% if active_tab == 'bar' %} active{% endif %}">
 				<a href="{% url 'adminpanel:generate-graph' "bar" %}">
-					<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Bar Graph&nbsp;&nbsp;
+					<span class="glyphicon"></span>&nbsp;&nbsp;Bar Graph&nbsp;&nbsp;
 				</a>
 			</li>
 		</ul>
 	</li>
-	<li>
-		<a href="{% url 'adminpanel:association_rules' %}" class="" >
+	<li class="{% if active_tab == 'association_rules' %} active{% endif %}" >
+		<a href="{% url 'adminpanel:association_rules' %}" >
 			<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Association Rules&nbsp;&nbsp;
 		</a>
 		
 	</li>
-	<li>
+	<li class="{% if active_tab == 'discount_list' %} active{% endif %}" >
 		<a href="{% url 'adminpanel:list-discounts' %}" class="" >
 			<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Discount Offers&nbsp;&nbsp;
 		</a>

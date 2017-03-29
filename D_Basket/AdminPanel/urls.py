@@ -84,6 +84,10 @@ urlpatterns = [
 
    url(r'^association_rules/list$', login_required(views.AssociationRules.as_view()) , name = 'association_rules'),
 
+
+
+   url(r'^discount/sendmail$', login_required(discount_views.sendDiscountMail) , name = 'send-discount-mail'),
+
   
 
 ]
