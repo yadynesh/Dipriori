@@ -51,3 +51,20 @@ class Transaction(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('adminpanel:list-transactions')
+
+
+class Discount(models.Model):
+	left_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'left_item1')
+	left_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'left_item2')
+	right_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'right_item1')
+	right_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'right_item2')
+	confidence = models.FloatField()
+
+	def __str__(self):
+		return  str(self.left_item1) + " " + str(self.left_item2) + "--->" + str(self.right_item1) + " " + str(self.right_item2)
+
+	def get_absolute_url(self):
+		return reverse('adminpanel:list-discounts')
+
+		
+

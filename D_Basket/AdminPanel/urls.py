@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from django.contrib.auth.decorators import login_required, permission_required
-from . import views,customer_views,item_views,transaction_views,graph_views
+from . import views,customer_views,item_views,transaction_views,graph_views,discount_views
 app_name = 'adminpanel'
 
 urlpatterns = [
@@ -61,12 +61,29 @@ urlpatterns = [
    url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
 
 
+   #/emp/discount/list
+   url(r'^discount/list/$', login_required(discount_views.DiscountListView.as_view()) , name='list-discounts'),
+
+   #/emp/discount/add
+   #url(r'^customer/add/$', login_required(discount_views.CreateDiscount.as_view()) , name = 'add-discount'),
+
+   #/emp/discount/<pk>
+   url(r'^discount/(?P<pk>[0-9]+)/$', login_required(discount_views.UpdateDiscount.as_view()) , name = 'update-discount'),
+
+   #/emp/discount/delete/<pk>
+   url(r'^discount/(?P<pk>[0-9]+)/delete/$', login_required(discount_views.DeleteDiscount.as_view()) , name = 'delete-discount'),
+
+
+
+
 
    #/emp/runclient
    url(r'^runclient/$', login_required(views.runAprioriClient) , name = 'runclient'),
 
 
 
-   url(r'^association_rules/list$', login_required(views.getAssociationRules) , name = 'association_rules_list'),
+   url(r'^association_rules/list$', login_required(views.AssociationRules.as_view()) , name = 'association_rules'),
+
+  
 
 ]
