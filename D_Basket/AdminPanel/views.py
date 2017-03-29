@@ -41,9 +41,9 @@ class AssociationRules(View):
         if(len(right_items) == 2):
             right_item2 = Item.objects.get(item_name = right_items[1])
 
-        confidence = request.POST['confidence']
+        discount = request.POST['discount']
 
-        discount = Discount(left_item1 = left_item1,left_item2 = left_item2,right_item1 = right_item1,right_item2 = right_item2,confidence = confidence)
+        discount = Discount(left_item1 = left_item1,left_item2 = left_item2,right_item1 = right_item1,right_item2 = right_item2,discount_percent = discount)
         discount.save()
 
         return redirect('adminpanel:list-discounts')

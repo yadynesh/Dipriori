@@ -24,6 +24,7 @@
 				<tr>
 					<th>Left Side</th>
 					<th>Right Side</th>
+					<th>Discount Percent</th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -44,6 +45,10 @@
 									,{{discount.right_item2.item_name}}
 							{% endif %}
 						</td>
+						<td>
+							{{ discount.discount_percent }} 
+							
+						</td>
 						
 						<td>
 							<a href="{% url 'adminpanel:update-discount' discount.pk %}">
@@ -63,11 +68,9 @@
 								<input type="hidden" class="form-control" name="discount_right" 
 									value="{{discount.right_item1.item_name }}{% if discount.right_item2 != None  %},{{discount.right_item2.item_name}}{% endif %}"
 								>
-								
+								<input type="hidden" name="discount_percent" value="{{ discount.discount_percent }} ">
 								<button type="submit" class="btn btn-danger">
 									Send Mail
-									<span class="glyphicon glyphicon-envelope" aria-hidden="true"/>
-									
 								</button>
 							</form>
 						</td>

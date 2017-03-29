@@ -58,10 +58,12 @@ class Discount(models.Model):
 	left_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Left Item 2', blank=True, null=True, related_name = 'left_item2')
 	right_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Right Item 1', blank=True, null=True, related_name = 'right_item1')
 	right_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Right Item 2', blank=True, null=True, related_name = 'right_item2')
-	confidence = models.FloatField()
+	discount_percent = models.FloatField()
+	
 
 	def __str__(self):
-		return  str(self.left_item1) + " " + str(self.left_item2) + "--->" + str(self.right_item1) + " " + str(self.right_item2)
+		return  str(self.left_item1) + " " + str(self.left_item2) + "--->" + str(self.right_item1) + " " + str(self.right_item2) + "--" + str(self.discount)
+
 
 	def get_absolute_url(self):
 		return reverse('adminpanel:list-discounts')

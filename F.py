@@ -60,7 +60,7 @@ def add_to_final_itemset(final_set,frequent_itemset):
 
 # In[71]:
 while True:
-    transactions = pd.read_csv("Final_Original2.csv",skiprows = range (1,rowskip),nrows = no_of_rows)
+    transactions = pd.read_csv("original2.csv",skiprows = range (1,rowskip),nrows = no_of_rows)
     if len(transactions) != no_of_rows:
         print("\n\n***********Not enough transactions***********\n\n")
         break
@@ -176,11 +176,7 @@ while True:
     
 
 
-
 # In[87]:
-
-final_two_itemset = final_two_itemset[final_two_itemset>30000]  
-final_three_itemset = final_three_itemset[final_three_itemset>30000]  
 
 final_two_items = pd.Series()
 final_two_items = final_two_items.append(final_two_itemset)
@@ -197,7 +193,6 @@ for index1 in final_two_itemset.index:
 
 association_rules = pd.Series()
 association_list = []
-
 
 for inx in final_three_itemset.index:
     association_list = []

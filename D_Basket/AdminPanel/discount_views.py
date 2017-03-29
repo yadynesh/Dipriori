@@ -15,7 +15,7 @@ class DiscountListView(generic.ListView):
 
 class UpdateDiscount(generic.UpdateView):
 	model = Discount
-	fields = ['left_item1', 'left_item2', 'right_item1', 'right_item2']
+	fields = ['left_item1', 'left_item2', 'right_item1', 'right_item2' ,'discount_percent']
 
 class DeleteDiscount(generic.DeleteView):
 	model = Discount
@@ -35,8 +35,14 @@ def sendDiscountMail(request):
 
 	discount_left = request.POST['discount_left']
 	discount_right = request.POST['discount_right']
-	print(discount_right)
-	message = "Buy " + discount_left + " and get " + discount_right + " free."
+	discount_percent = request.POST['discount_percent']
+	print(discount_percent)
+
+	if float(discount_percent) == 100 :
+		message = "Buy " + discount_left + " and get " + discount_right + " free."
+	else :
+		message = "Buy " + discount_left + " and get discount of " + discount_percent + "% on " + discount_right
+
 	subscribed_customers = Customer.objects.filter(subscribe=True)
 	subscribed_customers_email = []
 

@@ -25,6 +25,7 @@
 					<th>Left Side</th>
 					<th>Right Side</th>
 					<th>Confidence</th>
+					<th>Discount Percent</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -40,6 +41,11 @@
 						<td>
 							{{ association_rule.confidence }}
 						</td>
+						<form action="{% url 'adminpanel:association_rules' %}" method="POST" role="form">
+								{% csrf_token %}
+						<td>
+							<input type="number" name="discount" min="1" max="100"><b>%</b>
+						</td>
 						<td>
 							<form action="{% url 'adminpanel:association_rules' %}" method="POST" role="form">
 								{% csrf_token %}
@@ -47,7 +53,7 @@
 								<input type="hidden" class="form-control" name="ass_right" value="{{association_rule.rule_rightside}}">
 								<input type="hidden" class="form-control" name="confidence" value="{{association_rule.confidence}}">
 								<button type="submit" class="btn btn-danger">
-									Add
+									Add Discount
 								</button>
 							</form>
 						</td>

@@ -8,7 +8,7 @@ import socket
 import pandas as pd
 import pickle as pickle
 def Main():
-    host = '127.0.0.1'
+    host = ''
     port = 53
     s = socket.socket()
     s.bind((host,port))
@@ -23,10 +23,10 @@ def Main():
         print ("Connection from :"+str(addr2))
         
         
-        data3 = c1.recv(500000)
+        data3 = c1.recv(50000000000)
         data1 = pickle.loads(data3)
         
-        data4 = c2.recv(500000)
+        data4 = c2.recv(50000000000)
         data2 = pickle.loads(data4)
         
         print(data1)
