@@ -8,7 +8,10 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{% url 'adminpanel:home' %}">D-Basket</a>
+				<a class="navbar-brand" href="{% url 'adminpanel:home' %}">
+					<span class="glyphicon glyphicon-home">&nbsp;</span>
+					D-Basket
+				</a>
 			</div>
 	
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,7 +27,8 @@
 								<a>Welcome {{user.username}}</a>
 								
 							</li>
-							<li><a href="/accounts/logout">
+							<li>
+								<a href="/accounts/logout">
 									<span class="glyphicon glyphicon-off">&nbsp;</span>Logout
 								</a>
 							</li>
