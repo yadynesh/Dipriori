@@ -54,10 +54,10 @@ class Transaction(models.Model):
 
 
 class Discount(models.Model):
-	left_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'left_item1')
-	left_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'left_item2')
-	right_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'right_item1')
-	right_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Item', blank=True, null=True, related_name = 'right_item2')
+	left_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Left Item 1', blank=True, null=True, related_name = 'left_item1')
+	left_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Left Item 2', blank=True, null=True, related_name = 'left_item2')
+	right_item1 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Right Item 1', blank=True, null=True, related_name = 'right_item1')
+	right_item2 = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name = 'Right Item 2', blank=True, null=True, related_name = 'right_item2')
 	confidence = models.FloatField()
 
 	def __str__(self):
