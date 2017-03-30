@@ -2,19 +2,40 @@ from django.views.generic import View
 from django.shortcuts import render,redirect
 import matplotlib
 import pandas as pd
-from .models import Item, Discount
+from .models import Item, Discount, Statistic
 from django.conf import settings
 
+def reset(request):
+    stats_object = Statistic.objects.first()
+    stats_object.rows_scanned = 1
+    stats_object.save()
+    f = open(settings.BASE_DIR+"/association_rules.csv", "w+")
+    f.close()
+    f = open(settings.BASE_DIR+"/final_one_itemset.csv", "w+")
+    f.close()
+    f = open(settings.BASE_DIR+"/final_two_itemset.csv", "w+")
+    f.close()
+    f = open(settings.BASE_DIR+"/final_three_itemset.csv", "w+")
+    f.close()
+    f = open(settings.BASE_DIR+"/batchwise_one_item_count.csv", "w+")
+    f.close()
+    template = "AdminPanel/home.html"
+    return render(request, template)
 
-class AdminFormView(View):
-	def get(self, request, *args, **kwargs):
-		template = "AdminPanel/home.html"
-		return render(request, template,)
 
 def runAprioriClient(request):
     from . import AprioriClient
-    template = "AdminPanel/home.html"
-    return render(request, template,)
+    return redirect('adminpanel:home')
+
+
+class AdminFormView(View):
+    def get(self, request, *args, **kwargs):
+        template = "AdminPanel/home.html"
+        stats_object = Statistic.objects.first()
+        context = {
+            'stats_object' : stats_object
+        }
+        return render(request, template, context)
 
 
 class AssociationRules(View):

@@ -72,5 +72,7 @@ class Discount(models.Model):
 
 class Statistic(models.Model):
 	rows_scanned = models.BigIntegerField(default = 1)
+	run_time = models.FloatField()
+
 	def __str__(self):
-		return  str(self.rows_scanned)
+		return  str(self.rows_scanned) + "-" + str(self.run_time)

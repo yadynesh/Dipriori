@@ -50,22 +50,10 @@ def Chart(request, itemset):
     fig.subplots_adjust(bottom=0.35)
     
 
-    final_itemset = pd.Series()
-    #print("itemset="+str(itemset))
-    
-    if int(itemset) == 1:
-        final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_one_itemset.csv")
-        final_itemset.plot.bar(ax=ax)
+    final_itemset = pd.read_csv(settings.BASE_DIR + "/batchwise_one_item_count.csv",nrows=1)
+    final_itemset = final_itemset.nlargest(n=10 ,columns = ['shoes'])
+    final_itemset.plot.bar(ax=ax)
 
-    if int(itemset) == 2:
-        final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_two_itemset.csv")
-        final_itemset= final_itemset[final_itemset>50000]
-        final_itemset.plot.bar(ax=ax)
-
-    if int(itemset) == 3:
-        final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_three_itemset.csv")
-        final_itemset= final_itemset[final_itemset>40000]
-        final_itemset.plot.bar(ax=ax)
 
     canvas = FigureCanvas(fig)
     response = HttpResponse( content_type = 'image/png')

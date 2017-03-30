@@ -22,17 +22,22 @@
 		</div>
 	</div>
 	
-	<div class="text-center">
-		<h3>Frequent One Itemset</h3>
-		<img class="img-responsive" alt="Image" src="{%url 'adminpanel:generate-barchart' 1 %}"/>
-	</div><br/>
-	<div class="text-center">
-		<h3>Frequent Two Itemset</h3>
-		<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-barchart' 2 %}"/>
-	</div><br/>
-	<div class="text-center">
-		<h3>Frequent Three Itemset</h3>
-		<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-barchart' 3 %}"/>
+	<div class="row">
+		<div class="container col-md-offset-1 col-md-3">
+	  		<div class="well text-center">
+	  			<b>Total Transactions Scanned</b><br/>
+				<h1>{{stats_object.rows_scanned}}</h1>
+	  		</div>
+		</div>
+		<div class="container col-md-3">
+	  		<div class="well text-center">
+	  			<b>Run Time</b><br/>
+				<h1>{{stats_object.run_time}}</h1> secs
+				
+
+	  		</div>
+		</div>
+
 	</div>
 
 {% endblock content %}

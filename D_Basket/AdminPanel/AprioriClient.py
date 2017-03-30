@@ -8,6 +8,9 @@ import socket
 import pickle
 import matplotlib
 from timeit import default_timer
+stats_object = Statistic.objects.first()
+
+start_time = default_timer()
 rowskip = Statistic.objects.first().rows_scanned
 no_of_rows = 10000
 items = 60
@@ -17,14 +20,16 @@ minimum_support = support_percent * no_of_rows
 final_three_itemset = pd.Series();
 final_two_itemset = pd.Series();
 final_one_itemset = pd.Series();
+
+
 print("Minimum support = "+str(minimum_support))
 if(rowskip != 1):
     final_one_itemset  = pd.Series.from_csv(path = settings.BASE_DIR+"/final_one_itemset.csv")
     final_two_itemset  = pd.Series.from_csv(path = settings.BASE_DIR+"/final_two_itemset.csv")
     final_three_itemset = pd.Series.from_csv(path = settings.BASE_DIR+"/final_three_itemset.csv")
 
-print(type(rowskip))
-print(type(final_two_itemset))
+# print(type(rowskip))
+# print(type(final_two_itemset))
 # In[26]:
 
 def sendToServer(send_bytes):
@@ -92,7 +97,9 @@ while True:
     # In[72]:
     
     one_item_count = transactions.sum(axis=0)
+    print(type(one_item_count))
     print("One Item Count:\n\n"+str(one_item_count))
+    one_item_count.to_frame().T.to_csv(path_or_buf = settings.BASE_DIR + "/batchwise_one_item_count.csv", mode = 'a',header = (rowskip==1), index = False)
     
     
     # In[73]:
@@ -198,7 +205,7 @@ while True:
     print ("Number of rows scanned="+str(rowskip))
     
 
-stats_object = Statistic.objects.first()
+
 stats_object.rows_scanned = rowskip
 stats_object.save()
 # In[87]:
@@ -285,6 +292,11 @@ association_rules.to_csv(path_or_buf=settings.BASE_DIR+"/association_rules.csv")
 final_one_itemset.to_csv(path=settings.BASE_DIR+"/final_one_itemset.csv")
 final_two_items.to_csv(path=settings.BASE_DIR+"/final_two_itemset.csv")
 final_three_itemset.to_csv(path=settings.BASE_DIR+"/final_three_itemset.csv")
+
+end_time = default_timer()
+
+stats_object.run_time = round((end_time - start_time),4)
+stats_object.save()
 
 
 

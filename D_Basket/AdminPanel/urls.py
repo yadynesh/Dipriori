@@ -7,6 +7,9 @@ app_name = 'adminpanel'
 urlpatterns = [
    #/emp/customer/list
    url(r'^home', login_required(views.AdminFormView.as_view()) , name='home'),
+   url(r'^reset', login_required(views.reset) , name='reset'),
+
+
 
    url(r'^customer/list/$', login_required(customer_views.CustomerListView.as_view()) , name='list-customers'),
 
@@ -59,6 +62,10 @@ urlpatterns = [
 
    #/emp/graph/bar/<itemset>
    url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
+   #/emp/graph/chart/<itemset>
+   url(r'^graph/chart/(?P<itemset>[0-9]+)/$', login_required(graph_views.Chart) , name = 'generate-chart'),
+
+
 
 
    #/emp/discount/list
