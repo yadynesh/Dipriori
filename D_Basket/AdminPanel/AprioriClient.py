@@ -1,5 +1,5 @@
 from django.conf import settings
-
+from .models import Statistic
 import pandas as pd
 import itertools as iter
 import re
@@ -8,23 +8,28 @@ import socket
 import pickle
 import matplotlib
 from timeit import default_timer
-rowskip = 1
+rowskip = Statistic.objects.first().rows_scanned
 no_of_rows = 10000
 items = 60
 support_percent = 10/100
 confidence = 0 
 minimum_support = support_percent * no_of_rows
-final_three_itemset = pd.DataFrame();
-final_two_itemset = pd.DataFrame();
-final_one_itemset = pd.DataFrame();
+final_three_itemset = pd.Series();
+final_two_itemset = pd.Series();
+final_one_itemset = pd.Series();
 print("Minimum support = "+str(minimum_support))
+if(rowskip != 1):
+    final_one_itemset  = pd.Series.from_csv(path = settings.BASE_DIR+"/final_one_itemset.csv")
+    final_two_itemset  = pd.Series.from_csv(path = settings.BASE_DIR+"/final_two_itemset.csv")
+    final_three_itemset = pd.Series.from_csv(path = settings.BASE_DIR+"/final_three_itemset.csv")
 
-
+print(type(rowskip))
+print(type(final_two_itemset))
 # In[26]:
 
 def sendToServer(send_bytes):
     host = '127.0.0.1'
-    #host = '192.168.43.31'
+    #host = '169.254.70.167'
     port = 53
     s = socket.socket()
     s.connect((host,port))
@@ -51,7 +56,7 @@ def add_to_final_itemset(final_set,frequent_itemset):
     if final_set.empty:
         final_set = frequent_itemset
     else:
-        final_set = final_set.add(frequent_itemset,fill_value=0)
+        final_set = final_set.fillna(0).add(frequent_itemset)
     return final_set
 
 def clean_three_items(items):
@@ -193,7 +198,9 @@ while True:
     print ("Number of rows scanned="+str(rowskip))
     
 
-
+stats_object = Statistic.objects.first()
+stats_object.rows_scanned = rowskip
+stats_object.save()
 # In[87]:
 final_two_itemset = final_two_itemset[final_two_itemset>50000]  
 final_three_itemset = final_three_itemset[final_three_itemset>50000]
