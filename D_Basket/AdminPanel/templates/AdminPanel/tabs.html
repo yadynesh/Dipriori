@@ -11,13 +11,6 @@
 				</a>
 			</li>
 		</ul>
-		<ul class="dropdown-menu">
-			<li class="{% if active_tab == 'bar' %} active{% endif %}">
-				<a href="{% url 'adminpanel:generate-graph' "bar" %}">
-					<span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Bar Graph&nbsp;&nbsp;
-				</a>
-			</li>
-		</ul>
 	</li>
 	<li class="{% if active_tab == 'association_rules' %} active{% endif %}" >
 		<a href="{% url 'adminpanel:association_rules' %}" >

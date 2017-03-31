@@ -4,9 +4,17 @@
 	Home
 {% endblock title %}
 
+{% block stylesheets %}
+	<style>
+		body{
+			background-color: #337ab7;
+		}
+	</style>
+{% endblock stylesheets %}
 {% block tabs %}
 	{% include "AdminPanel/tabs.html" with active_tab='home' %}
 {% endblock tabs %}
+
 
 {% block content %}
 	
@@ -14,7 +22,7 @@
 		<div class="container text-center">
 			<h1>Welcome To D-BASKET</h1>
 			<p>
-				<a class ="btn btn-primary btn-lg " href="{% url 'adminpanel:runclient' %}">
+				<a class ="btn btn-success btn-lg " href="{% url 'adminpanel:runclient' %}">
 					Run Apriori Client
 					<span class="glyphicon glyphicon-play" aria-hidden="true"/>
 				</a>
@@ -22,22 +30,74 @@
 		</div>
 	</div>
 	
-	<div class="row">
-		<div class="container col-md-offset-1 col-md-3">
-	  		<div class="well text-center">
-	  			<b>Total Transactions Scanned</b><br/>
-				<h1>{{stats_object.rows_scanned}}</h1>
-	  		</div>
-		</div>
-		<div class="container col-md-3">
-	  		<div class="well text-center">
-	  			<b>Run Time</b><br/>
-				<h1>{{stats_object.run_time}}</h1> secs
-				
+	<div id="">
+		<div class="row col-md-offset-2">
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Total Transactions Scanned</b><br/>
 
-	  		</div>
+					<h1>{{rows_scanned}}</h1>
+		  		</div>
+			</div>
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Run Time</b><br/>
+					<h1>{{stats_object.run_time}}</h1> secs
+		  		</div>
+			</div>
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Most Frequent Item</b><br/>
+					<h1>{{stats_object.most_frequent_item.item_name.capitalize}}</h1>
+		  		</div>
+			</div>
+		</div>
+		<div class="row col-md-offset-2">
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Total Items</b><br/>
+					<h1>{{item_count}}</h1>
+		  		</div>
+			</div>
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Total Customers</b><br/>
+					<h1>{{customer_count}}</h1>
+		  		</div>
+			</div>
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Discount Offers</b><br/>
+					<h1>{{discount_count}}</h1>
+		  		</div>
+			</div>
 		</div>
 
+		<div class="row col-md-offset-2">
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Total Batches</b><br/>
+					<h1>{{stats_object.total_batches}}</h1>
+		  		</div>
+			</div>
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Total Customers</b><br/>
+					<h1>{{customer_count}}</h1>
+		  		</div>
+			</div>
+			<div class="container col-md-3">
+		  		<div class="well text-center">
+		  			<b>Discount Offers</b><br/>
+					<h1>{{discount_count}}</h1>
+		  		</div>
+			</div>
+		</div>
 	</div>
 
+<script type="text/javascript">
+	$('#stats').load(document.URL + '#stats');
+
+
+</script>
 {% endblock content %}

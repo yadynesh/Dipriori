@@ -62,8 +62,8 @@ urlpatterns = [
 
    #/emp/graph/bar/<itemset>
    url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
-   #/emp/graph/chart/<itemset>
-   url(r'^graph/chart/(?P<itemset>[0-9]+)/$', login_required(graph_views.Chart) , name = 'generate-chart'),
+   #/emp/graph/bar/<batch_number>
+   url(r'^graph/bar/(?P<itemset_type>\w+)/(?P<batch_number>[0-9]+)/$', login_required(graph_views.batchwise_barchart) , name = 'generate-batchwise-barchart'),
 
 
 

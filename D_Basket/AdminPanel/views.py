@@ -2,12 +2,17 @@ from django.views.generic import View
 from django.shortcuts import render,redirect
 import matplotlib
 import pandas as pd
-from .models import Item, Discount, Statistic
+from .models import Item, Discount, Statistic, Customer
 from django.conf import settings
+from django.http import Http404
+from . import AprioriClient
 
 def reset(request):
     stats_object = Statistic.objects.first()
     stats_object.rows_scanned = 1
+    stats_object.run_time = 0.0
+    stats_object.most_frequent_item = None
+    stats_object.total_batches = 0
     stats_object.save()
     f = open(settings.BASE_DIR+"/association_rules.csv", "w+")
     f.close()
@@ -19,12 +24,15 @@ def reset(request):
     f.close()
     f = open(settings.BASE_DIR+"/batchwise_one_item_count.csv", "w+")
     f.close()
-    template = "AdminPanel/home.html"
-    return render(request, template)
+    f = open(settings.BASE_DIR+"/batchwise_local_frequent_one_item.csv", "w+")
+    f.close()
+    f = open(settings.BASE_DIR+"/batchwise_global_frequent_one_item.csv", "w+")
+    f.close()
+    return redirect('adminpanel:home')
 
 
 def runAprioriClient(request):
-    from . import AprioriClient
+    AprioriClient.main()
     return redirect('adminpanel:home')
 
 
@@ -32,8 +40,16 @@ class AdminFormView(View):
     def get(self, request, *args, **kwargs):
         template = "AdminPanel/home.html"
         stats_object = Statistic.objects.first()
+        item_count = Item.objects.count()
+        customer_count = Customer.objects.count()
+        discount_count = Discount.objects.count()
+        
         context = {
-            'stats_object' : stats_object
+            'stats_object' : stats_object,
+            'item_count' : item_count,
+            'customer_count' : customer_count,
+            'discount_count' : discount_count,
+            'rows_scanned' : (stats_object.rows_scanned - 1)
         }
         return render(request, template, context)
 
@@ -41,9 +57,13 @@ class AdminFormView(View):
 class AssociationRules(View):
 
     def get(self, request, *args, **kwargs):
-        association_rules = pd.read_csv(settings.BASE_DIR+"/association_rules.csv")
+        try:
+            association_rules = pd.read_csv(settings.BASE_DIR+"/association_rules.csv")
+        except:
+            raise Http404("No association rules generated")
         print(association_rules)
         template = "AdminPanel/association_rules.html"
+        
         return render(request, template,{'association_rules':association_rules})
 
 

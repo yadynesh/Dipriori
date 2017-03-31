@@ -42,17 +42,22 @@ def barChart(request, itemset):
     canvas.print_png(response)
     return response
 
-def Chart(request, itemset):
+def batchwise_barchart(request, itemset_type, batch_number):
     fig = Figure()
     fig.set_size_inches(15, 6, forward=True)
 
     ax = fig.add_subplot(111)
     fig.subplots_adjust(bottom=0.35)
     
+    if itemset_type == "local":
+        final_itemset = pd.read_csv(settings.BASE_DIR + "/batchwise_one_item_count.csv")
+    elif itemset_type == "localfrequent":
+        final_itemset = pd.read_csv(settings.BASE_DIR + "/batchwise_local_frequent_one_item.csv")
+    elif itemset_type == "globalfrequent":
+        final_itemset = pd.read_csv(settings.BASE_DIR + "/batchwise_global_frequent_one_item.csv")
+    print(final_itemset)
 
-    final_itemset = pd.read_csv(settings.BASE_DIR + "/batchwise_one_item_count.csv",nrows=1)
-    final_itemset = final_itemset.nlargest(n=10 ,columns = ['shoes'])
-    final_itemset.plot.bar(ax=ax)
+    final_itemset.iloc[int(batch_number)-1].plot.bar(ax=ax)
 
 
     canvas = FigureCanvas(fig)

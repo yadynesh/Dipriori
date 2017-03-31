@@ -62,7 +62,7 @@ class Discount(models.Model):
 	
 
 	def __str__(self):
-		return  str(self.left_item1) + " " + str(self.left_item2) + "--->" + str(self.right_item1) + " " + str(self.right_item2) + "--" + str(self.discount)
+		return  str(self.left_item1) + " " + str(self.left_item2) + "--->" + str(self.right_item1) + " " + str(self.right_item2) + "--" + str(self.discount_percent)
 
 
 	def get_absolute_url(self):
@@ -73,6 +73,8 @@ class Discount(models.Model):
 class Statistic(models.Model):
 	rows_scanned = models.BigIntegerField(default = 1)
 	run_time = models.FloatField()
+	most_frequent_item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True, null=True)
+	total_batches = models.IntegerField()
 
 	def __str__(self):
-		return  str(self.rows_scanned) + "-" + str(self.run_time)
+		return  str(self.rows_scanned) + "-" + str(self.run_time) + "-" + str(self.most_frequent_item) + "-" + str(self.total_batches)
