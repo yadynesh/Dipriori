@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Batch Graphs
+{% endblock title %}
+
+{% block tabs %}
+	{% include "AdminPanel/tabs.html" with active_tab="batchwise_statistics" %}
+{% endblock tabs %}
+
+{% block content %}
+
+	<div class="panel panel-default col-md-offset-3 col-md-5">
+		<div class="panel-body col-sm-12">
+			<form action="." method="POST" role="form">
+				{% csrf_token %}
+				<legend>Enter batch number to view</legend>
+			
+				
+				{{batch_form.as_p}}
+			
+				<button type="submit" class="btn btn-primary ">Get Statistics</button>
+			</form>
+		</div>
+
+	</div>
+
+	<div class="row"></div>
+
+	{% if batch_number %}
+		<h1 class="text-center">Batch Number : {{batch_number}}</h1>
+		<div class="text-center">
+			<h3>Local Frequent One Itemset</h3>
+			<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-batchwise-barchart' "localfrequent" batch_number %}"/>
+		</div><br/>
+		<div class="text-center">
+			<h3>Global Frequent One Itemset</h3>
+			<img class="img-responsive col-sm-12" alt="Image" src="{%url 'adminpanel:generate-batchwise-barchart' "globalfrequent" batch_number %}"/>
+		</div><br/>
+	{% endif %}
+	
+{% endblock content %}

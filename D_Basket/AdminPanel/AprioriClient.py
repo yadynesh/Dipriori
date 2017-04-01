@@ -1,4 +1,3 @@
-
 def main():
     from django.conf import settings
     from .models import Statistic,Item
@@ -36,7 +35,7 @@ def main():
     # In[26]:
 
     def sendToServer(send_bytes):
-        host = '127.0.0.1'
+        host = '169.254.0.153'
         #host = '169.254.70.167'
         port = 53
         s = socket.socket()
@@ -314,6 +313,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 

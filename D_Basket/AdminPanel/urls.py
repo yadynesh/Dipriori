@@ -62,7 +62,12 @@ urlpatterns = [
 
    #/emp/graph/bar/<itemset>
    url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
-   #/emp/graph/bar/<batch_number>
+
+   url(r'^graph/bar/batch/$', login_required(graph_views.BatchStatistics.as_view()) , name = 'generate-batchwise-statistics'),
+
+   url(r'^graph/bar/batch/compare/$', login_required(graph_views.BatchCompare.as_view()) , name = 'batchwise-compare'),
+
+   #/emp/graph/bar/<item_type>/<batch_number>
    url(r'^graph/bar/(?P<itemset_type>\w+)/(?P<batch_number>[0-9]+)/$', login_required(graph_views.batchwise_barchart) , name = 'generate-batchwise-barchart'),
 
 

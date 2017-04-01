@@ -6,7 +6,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import pandas as pd
 import seaborn
-
+from .models import Statistic
+from .graph_forms import BatchStatisticsForm,BatchCompareForm
 
 def graph_main(request,type):
     return render(request,'AdminPanel/graphs.html',{'type':type})
@@ -21,7 +22,6 @@ def barChart(request, itemset):
     
 
     final_itemset = pd.Series()
-    #print("itemset="+str(itemset))
     
     if int(itemset) == 1:
         final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_one_itemset.csv")
@@ -41,6 +41,36 @@ def barChart(request, itemset):
     response = HttpResponse( content_type = 'image/png')
     canvas.print_png(response)
     return response
+
+class BatchStatistics(View):
+    def get(self, request, *args, **kwargs):
+        batch_form = BatchStatisticsForm()
+        return render(request,'AdminPanel/batchwise_statistics.html',{'batch_form' : batch_form})
+
+    def post(self, request, *args, **kwargs):
+        batch_form = BatchStatisticsForm(request.POST)
+        if batch_form.is_valid():
+            batch_number =  batch_form.cleaned_data['batch_number']
+            return render(request,'AdminPanel/batchwise_statistics.html',{'batch_form' : batch_form, 'batch_number': batch_number})
+
+
+class BatchCompare(View):
+    def get(self, request, *args, **kwargs):
+        batch_compare_form = BatchCompareForm()
+        return render(request,'AdminPanel/compare_local_batch.html',{'batch_compare_form' : batch_compare_form})
+
+    def post(self, request, *args, **kwargs):
+        batch_compare_form = BatchCompareForm(request.POST)
+        if batch_compare_form.is_valid():
+            batch_number_1 =  batch_compare_form.cleaned_data['batch_number_1']
+            batch_number_2 =  batch_compare_form.cleaned_data['batch_number_2']
+            context = {
+                'batch_compare_form' : batch_compare_form,
+                'batch_number1': batch_number_1,
+                'batch_number2': batch_number_2 
+
+            }
+            return render(request,'AdminPanel/compare_local_batch.html',context)
 
 def batchwise_barchart(request, itemset_type, batch_number):
     fig = Figure()

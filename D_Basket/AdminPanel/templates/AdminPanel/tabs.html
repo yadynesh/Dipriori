@@ -10,6 +10,16 @@
 					<span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Bar Graph&nbsp;&nbsp;
 				</a>
 			</li>
+			<li class="{% if active_tab == 'batchwise_statistics' %} active{% endif %}">
+				<a href="{% url 'adminpanel:generate-batchwise-statistics' %}">
+					<span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Batch Statistics&nbsp;&nbsp;
+				</a>
+			</li>
+			<li class="{% if active_tab == 'batchwisecompare' %} active{% endif %}">
+				<a href="{% url 'adminpanel:batchwise-compare' %}">
+					<span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Compare Batches&nbsp;&nbsp;
+				</a>
+			</li>
 		</ul>
 	</li>
 	<li class="{% if active_tab == 'association_rules' %} active{% endif %}" >
