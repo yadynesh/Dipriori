@@ -43,13 +43,14 @@ class AdminFormView(View):
         item_count = Item.objects.count()
         customer_count = Customer.objects.count()
         discount_count = Discount.objects.count()
-        
+        discount_offers = Discount.objects.all()
         context = {
             'stats_object' : stats_object,
             'item_count' : item_count,
             'customer_count' : customer_count,
             'discount_count' : discount_count,
-            'rows_scanned' : (stats_object.rows_scanned - 1)
+            'rows_scanned' : (stats_object.rows_scanned - 1),
+            'discount_offers' : discount_offers,
         }
         return render(request, template, context)
 
