@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer,Item,Transaction,Discount,Statistic
+from .models import Customer,Item,Transaction,Discount,Statistic,Configuration
 from .forms import TransactionForm
 
 
@@ -20,4 +20,5 @@ admin.site.register(Customer,CustomerAdmin)
 admin.site.register(Transaction,TransactionAdmin)
 admin.site.register(Discount)
 admin.site.register(Statistic)
+admin.site.register(Configuration)
 

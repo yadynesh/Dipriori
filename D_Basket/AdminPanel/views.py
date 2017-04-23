@@ -2,10 +2,12 @@ from django.views.generic import View
 from django.shortcuts import render,redirect
 import matplotlib
 import pandas as pd
-from .models import Item, Discount, Statistic, Customer
+from .models import Item, Discount, Statistic, Customer, Configuration
+from .forms import ConfigurationForm
 from django.conf import settings
 from django.http import Http404
 from . import AprioriClient
+from django.conf import settings
 
 def reset(request):
     stats_object = Statistic.objects.first()
@@ -92,3 +94,28 @@ class AssociationRules(View):
 
 
 
+
+
+class ConfigureSettings(View):
+    def get(self, request, *args, **kwargs):
+        conf_object = Configuration.objects.first()
+        context = {
+            'email_id':conf_object.admin_email_id,
+            'email_password':conf_object.admin_email_password,
+            'server_ip_address':conf_object.server_ip_address,
+        }
+        conf_form = ConfigurationForm(context)
+        template = "AdminPanel/configurations.html"
+        return render(request, template,{'form':conf_form})
+
+    def post(self, request, *args, **kwargs):
+        conf_form = ConfigurationForm(request.POST)
+        if conf_form.is_valid():
+            conf_object = Configuration.objects.first()
+            conf_object.admin_email_id = conf_form.cleaned_data['email_id']
+            conf_object.email_password = conf_form.cleaned_data['email_password']
+            conf_object.server_ip_address = conf_form.cleaned_data['server_ip_address']
+            conf_object.save()
+            settings.configure(EMAIL_HOST_USER = conf_object.admin_email_id,EMAIL_HOST_PASSWORD = conf_object.email_password)
+
+        return redirect('adminpanel:home')

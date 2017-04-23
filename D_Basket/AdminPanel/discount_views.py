@@ -1,6 +1,6 @@
 from django.views.generic import View
 from django.shortcuts import render,redirect
-from .models import Item, Discount, Customer
+from .models import Item, Discount, Customer, Configuration
 from django.conf import settings
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
@@ -32,7 +32,7 @@ class DeleteDiscount(generic.DeleteView):
 # 	template_name = "AdminPanel/customer-details.html"
 
 def sendDiscountMail(request):
-
+	settings.configure(EMAIL_HOST_USER = Configuration.admin_email_id,EMAIL_HOST_PASSWORD = Configuration.email_password)
 	discount_left = request.POST['discount_left']
 	discount_right = request.POST['discount_right']
 	discount_percent = request.POST['discount_percent']

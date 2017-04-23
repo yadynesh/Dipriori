@@ -85,6 +85,8 @@ urlpatterns = [
    #/emp/discount/delete/<pk>
    url(r'^discount/(?P<pk>[0-9]+)/delete/$', login_required(discount_views.DeleteDiscount.as_view()) , name = 'delete-discount'),
 
+   #/emp/discount/sendmail
+   url(r'^discount/sendmail$', login_required(discount_views.sendDiscountMail) , name = 'send-discount-mail'),
 
 
 
@@ -92,13 +94,13 @@ urlpatterns = [
    #/emp/runclient
    url(r'^runclient/$', login_required(views.runAprioriClient) , name = 'runclient'),
 
-
-
+   #/emp/association_rules/list
    url(r'^association_rules/list$', login_required(views.AssociationRules.as_view()) , name = 'association_rules'),
 
+   #/emp/configurations
+   url(r'^configurations/$', login_required(views.ConfigureSettings.as_view()) , name = 'configurations-settings'),
 
 
-   url(r'^discount/sendmail$', login_required(discount_views.sendDiscountMail) , name = 'send-discount-mail'),
 
   
 

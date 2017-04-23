@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-
+from django.core.validators import validate_ipv4_address
 # Create your models here.
 
 # class Admin(models.Model):
@@ -78,3 +78,11 @@ class Statistic(models.Model):
 
 	def __str__(self):
 		return  str(self.rows_scanned) + "-" + str(self.run_time) + "-" + str(self.most_frequent_item) + "-" + str(self.total_batches)
+
+class Configuration(models.Model):
+	admin_email_id = models.EmailField(max_length = 100,null = False, blank=False, verbose_name = 'Email address')
+	admin_email_password = models.CharField(max_length=100, verbose_name = 'Email address password')
+	server_ip_address = models.CharField(max_length = 50, validators = [validate_ipv4_address], verbose_name = 'Server IP Address')
+
+	def __str__(self):
+		return str(self.admin_email_id) + "-" + str(self.server_ip_address)

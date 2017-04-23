@@ -1,6 +1,6 @@
 def main():
     from django.conf import settings
-    from .models import Statistic,Item
+    from .models import Statistic,Item, Configuration
     import pandas as pd
     import itertools as iter
     import re
@@ -10,6 +10,7 @@ def main():
     import matplotlib
     from timeit import default_timer
     stats_object = Statistic.objects.first()
+    conf_object = Configuration.objects.first()
 
     start_time = default_timer()
     rowskip = stats_object.rows_scanned
@@ -35,8 +36,7 @@ def main():
     # In[26]:
 
     def sendToServer(send_bytes):
-        host = '169.254.0.153'
-        #host = '169.254.70.167'
+        host = conf_object.server_ip_address
         port = 53
         s = socket.socket()
         s.connect((host,port))

@@ -28,6 +28,7 @@
 		</a>
 		
 	</li>
+	
 	<li class="{% if active_tab == 'discount_list' %} active{% endif %}" >
 		<a href="{% url 'adminpanel:list-discounts' %}" class="" >
 			<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Discount Offers&nbsp;&nbsp;
@@ -90,5 +91,11 @@
 				</a>
 			</li>
 		</ul>
+	</li>
+	<li class="{% if active_tab == 'configurations-settings' %} active{% endif %}" >
+		<a href="{% url 'adminpanel:configurations-settings' %}" >
+			<span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Configure&nbsp;&nbsp;
+		</a>
+		
 	</li>
 </ul>
