@@ -1,0 +1,10 @@
+<center><h2>D-BASKET SALE!!!</h2>
+<p>Hello.Greetings From D-Basket.We are pleased to inform you that we are offering discounts on following items:</p>
+{% if discount_percent == 100.0 %}
+	<h1><font color="red">Buy {{discount_left}} and get {{discount_right}} free.</font><h1>
+{% else %}
+	<h1><font color="red">Buy {{discount_left}} and get discount of {{discount_percent}}% on {{discount_right}}.</font><h1>
+{% endif %}
+</p>
+<h3>HURRY!!!</h3>
+</center>

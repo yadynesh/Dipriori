@@ -4,7 +4,11 @@ from .models import Item, Discount, Customer, Configuration
 from django.conf import settings
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from django.core.mail.backends.smtp import EmailBackend
+
 
 
 class DiscountListView(generic.ListView):
@@ -32,16 +36,14 @@ class DeleteDiscount(generic.DeleteView):
 # 	template_name = "AdminPanel/customer-details.html"
 
 def sendDiscountMail(request):
-	settings.configure(EMAIL_HOST_USER = Configuration.admin_email_id,EMAIL_HOST_PASSWORD = Configuration.email_password)
 	discount_left = request.POST['discount_left']
 	discount_right = request.POST['discount_right']
 	discount_percent = request.POST['discount_percent']
-	print(discount_percent)
 
-	if float(discount_percent) == 100 :
-		message = "Buy " + discount_left + " and get " + discount_right + " free."
-	else :
-		message = "Buy " + discount_left + " and get discount of " + discount_percent + "% on " + discount_right
+	conf_object = Configuration.objects.first()
+	print(conf_object.admin_email_password)
+	backend = EmailBackend(host='smtp.gmail.com', port=587, username=conf_object.admin_email_id, 
+                       password=conf_object.admin_email_password, use_tls=True, fail_silently=False)
 
 	subscribed_customers = Customer.objects.filter(subscribe=True)
 	subscribed_customers_email = []
@@ -50,13 +52,24 @@ def sendDiscountMail(request):
 		subscribed_customers_email.append(customer.email_id)
 
 	print(subscribed_customers_email)
-	send_mail(
-	    'Discount Offers From D-Basket',
-	    message,
-	    'yadyneshdesai30@gmail.com',
-	    subscribed_customers_email,
-	    fail_silently=False,
-	)
 
-	
+	subject, from_email, to = 'Discount Offers From D-Basket', 'popularbasketeer@gmail.com', subscribed_customers_email
+	text_content = 'D-BASKET SALE!!!'
+	html_mail = get_template("AdminPanel/discount_mail.html")
+	d = Context({ 'discount_left': discount_left,'discount_right': discount_right, 'discount_percent': float(discount_percent), })
+
+
+	msg = EmailMultiAlternatives(subject, text_content, from_email, subscribed_customers_email,connection = backend)
+	html_content = html_mail.render(d)
+	msg.attach_alternative(html_content, "text/html")
+	msg.send()
+
+	# send_mail(
+	#     'Discount Offers From D-Basket',
+	#     message,
+	#     'D-Basket',
+	#     subscribed_customers_email,
+	#     fail_silently=False,
+	# )
+
 	return redirect('adminpanel:home')

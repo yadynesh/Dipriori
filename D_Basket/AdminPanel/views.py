@@ -33,7 +33,7 @@ def reset(request):
     return redirect('adminpanel:home')
 
 
-def runAprioriClient(request):
+def runAprioriClient(request):  
     AprioriClient.main()
     return redirect('adminpanel:home')
 
@@ -113,9 +113,8 @@ class ConfigureSettings(View):
         if conf_form.is_valid():
             conf_object = Configuration.objects.first()
             conf_object.admin_email_id = conf_form.cleaned_data['email_id']
-            conf_object.email_password = conf_form.cleaned_data['email_password']
+            conf_object.admin_email_password = conf_form.cleaned_data['email_password']
             conf_object.server_ip_address = conf_form.cleaned_data['server_ip_address']
             conf_object.save()
-            settings.configure(EMAIL_HOST_USER = conf_object.admin_email_id,EMAIL_HOST_PASSWORD = conf_object.email_password)
-
+            
         return redirect('adminpanel:home')
