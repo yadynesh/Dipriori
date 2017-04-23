@@ -17,8 +17,9 @@ def main():
     total_batches = stats_object.total_batches
     no_of_rows = 10000
     items = 60
-    support_percent = 10/100
+    support_percent = conf_object.local_minimum_support/100
     confidence = 0
+    required_confidence = conf_object.local_confidence
     minimum_support = support_percent * no_of_rows
     final_three_itemset = pd.Series();
     final_two_itemset = pd.Series();
@@ -255,7 +256,7 @@ def main():
                 if column1 not in association_list:
                     confidence = (final_three_itemset[inx]/final_one_itemset[column1]) * 100 ;
                     #print(confidence)
-                    if confidence > 80 :
+                    if confidence > required_confidence :
                         rule  = pd.DataFrame({'rule_leftside':[column1],'rule_rightside':[inx.replace(column1,'')],'confidence':[confidence]})
                         association_rules = association_rules.append(rule)
                     
@@ -284,7 +285,7 @@ def main():
                 if column1 not in association_list and column2 not in association_list :
                     confidence = (final_three_itemset[inx]/final_two_items[column1+","+column2]) * 100 ;
                     #print(confidence)
-                    if confidence > 80 :
+                    if confidence > required_confidence :
                         rule  = pd.DataFrame({'rule_leftside':[""+column1+","+column2],'rule_rightside':[inx.replace(column1,'').replace(column2,'')],'confidence':[confidence]})
                         association_rules = association_rules.append(rule)
     # In[91]:

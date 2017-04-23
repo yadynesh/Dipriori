@@ -49,6 +49,28 @@ class ConfigurationForm(forms.Form):
 				}
 			)
 		)
+		local_minimum_support = forms.CharField(
+			label = "Local Minimum Support Percentage",
+			widget = forms.NumberInput(
+				attrs = {
+					"placeholder" : "1-100",
+					"class" : "form-control",
+					"min" : "1",
+					"max" : "100",
+				}
+			)
+		)
+		local_confidence = forms.CharField(
+			label = "Confidence Percentage",
+			widget = forms.NumberInput(
+				attrs = {
+					"placeholder" : "1-100",
+					"class" : "form-control",
+					"min" : "1",
+					"max" : "100",
+				}
+			)
+		)
 		
 
 						

@@ -103,6 +103,8 @@ class ConfigureSettings(View):
             'email_id':conf_object.admin_email_id,
             'email_password':conf_object.admin_email_password,
             'server_ip_address':conf_object.server_ip_address,
+            'local_minimum_support':conf_object.local_minimum_support,
+            'local_confidence':conf_object.local_confidence, 
         }
         conf_form = ConfigurationForm(context)
         template = "AdminPanel/configurations.html"
@@ -115,6 +117,8 @@ class ConfigureSettings(View):
             conf_object.admin_email_id = conf_form.cleaned_data['email_id']
             conf_object.admin_email_password = conf_form.cleaned_data['email_password']
             conf_object.server_ip_address = conf_form.cleaned_data['server_ip_address']
+            conf_object.local_minimum_support = conf_form.cleaned_data['local_minimum_support']
+            conf_object.local_confidence = conf_form.cleaned_data['local_confidence']
             conf_object.save()
             
         return redirect('adminpanel:home')

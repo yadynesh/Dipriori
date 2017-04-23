@@ -83,6 +83,8 @@ class Configuration(models.Model):
 	admin_email_id = models.EmailField(max_length = 100,null = False, blank=False, verbose_name = 'Email address')
 	admin_email_password = models.CharField(max_length=100, verbose_name = 'Email address password')
 	server_ip_address = models.CharField(max_length = 50, validators = [validate_ipv4_address], verbose_name = 'Server IP Address')
+	local_minimum_support = models.FloatField()
+	local_confidence = models.FloatField()
 
 	def __str__(self):
 		return str(self.admin_email_id) + "-" + str(self.server_ip_address)

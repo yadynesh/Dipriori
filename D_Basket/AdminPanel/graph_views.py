@@ -28,14 +28,14 @@ def barChart(request, itemset):
         final_itemset.T.plot.bar(ax=ax)
 
     if int(itemset) == 2:
-    	final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_two_itemset.csv")
-    	final_itemset= final_itemset[final_itemset>50000]
-    	final_itemset.plot.bar(ax=ax)
+        final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_two_itemset.csv")
+        final_itemset= final_itemset[final_itemset>50000]
+        final_itemset.plot.bar(ax=ax)
 
     if int(itemset) == 3:
-    	final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_three_itemset.csv")
-    	final_itemset= final_itemset[final_itemset>40000]
-    	final_itemset.plot.bar(ax=ax)
+        final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_three_itemset.csv")
+        final_itemset= final_itemset[final_itemset>40000]
+        final_itemset.plot.bar(ax=ax)
 
     canvas = FigureCanvas(fig)
     response = HttpResponse( content_type = 'image/png')
@@ -87,11 +87,13 @@ def batchwise_barchart(request, itemset_type, batch_number):
         final_itemset = pd.read_csv(settings.BASE_DIR + "/batchwise_global_frequent_one_item.csv")
     print(final_itemset)
 
-    final_itemset.iloc[int(batch_number)-1].plot.bar(ax=ax)
-
+    print("bacthwise")
+    final_itemset = final_itemset.iloc[int(batch_number)-1]
+    print(final_itemset)
+    final_itemset.plot.bar(ax=ax)
+    print("catch")
 
     canvas = FigureCanvas(fig)
     response = HttpResponse( content_type = 'image/png')
     canvas.print_png(response)
     return response
-
