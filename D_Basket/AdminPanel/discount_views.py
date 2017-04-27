@@ -41,10 +41,15 @@ def sendDiscountMail(request):
 	discount_percent = request.POST['discount_percent']
 
 	conf_object = Configuration.objects.first()
-	print(conf_object.admin_email_password)
+	
+	'''
+	Configuring the django mail backend to set the username and password.
+	This username and password is taken from the Configuration table in dB.
+	'''
 	backend = EmailBackend(host='smtp.gmail.com', port=587, username=conf_object.admin_email_id, 
                        password=conf_object.admin_email_password, use_tls=True, fail_silently=False)
 
+	#filtering the customers who have subscribed to notifications.
 	subscribed_customers = Customer.objects.filter(subscribe=True)
 	subscribed_customers_email = []
 
@@ -56,11 +61,14 @@ def sendDiscountMail(request):
 	subject, from_email, to = 'Discount Offers From D-Basket', 'popularbasketeer@gmail.com', subscribed_customers_email
 	text_content = 'D-BASKET SALE!!!'
 	html_mail = get_template("AdminPanel/discount_mail.html")
-	d = Context({ 'discount_left': discount_left,'discount_right': discount_right, 'discount_percent': float(discount_percent), })
+	mail_context = Context({ 'discount_left': discount_left,'discount_right': discount_right, 'discount_percent': float(discount_percent), })
 
 
 	msg = EmailMultiAlternatives(subject, text_content, from_email, subscribed_customers_email,connection = backend)
-	html_content = html_mail.render(d)
+
+	#rendering the discount_mail.html page with context "mail_context"
+	html_content = html_mail.render(mail_context)
+	
 	msg.attach_alternative(html_content, "text/html")
 	msg.send()
 

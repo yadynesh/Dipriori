@@ -9,6 +9,8 @@ from django.http import Http404
 from . import AprioriClient
 from django.conf import settings
 
+
+#This method is used just for personal purpose to reset all the data in the database as well as the csvs.
 def reset(request):
     stats_object = Statistic.objects.first()
     stats_object.rows_scanned = 1
@@ -16,6 +18,8 @@ def reset(request):
     stats_object.most_frequent_item = None
     stats_object.total_batches = 0
     stats_object.save()
+
+    #rewriting the files to blank.
     f = open(settings.BASE_DIR+"/association_rules.csv", "w+")
     f.close()
     f = open(settings.BASE_DIR+"/final_one_itemset.csv", "w+")
@@ -33,11 +37,13 @@ def reset(request):
     return redirect('adminpanel:home')
 
 
+#This method will call the client code in AprioriClient.py
 def runAprioriClient(request):  
     AprioriClient.main()
     return redirect('adminpanel:home')
 
 
+#This class is for the home page where all the statistics are displayed.
 class AdminFormView(View):
     def get(self, request, *args, **kwargs):
         template = "AdminPanel/home.html"
@@ -57,13 +63,16 @@ class AdminFormView(View):
         return render(request, template, context)
 
 
+#This class displays all the association_rules by reading them from the csv.
 class AssociationRules(View):
 
     def get(self, request, *args, **kwargs):
         try:
             association_rules = pd.read_csv(settings.BASE_DIR+"/association_rules.csv")
         except:
-            raise Http404("No association rules generated")
+            #This will give a 404 error if there is no association rules in the csv.
+            raise Http404("No association rules generated") 
+
         print(association_rules)
         template = "AdminPanel/association_rules.html"
         
@@ -73,9 +82,11 @@ class AssociationRules(View):
     def post(self, request, *args, **kwargs):
         print(request.POST['ass_left'])
 
-        left_items = request.POST['ass_left'].split(",")  
+        #retrieving the item names(e.g- deo,perfume) from the association rules as list(e.g- [deo,pefume])
+        left_items = request.POST['ass_left'].split(",")
         left_item1 = Item.objects.get(item_name = left_items[0])
         left_item2 = None
+
         if(len(left_items) == 2):
             left_item2 = Item.objects.get(item_name = left_items[1])
 
@@ -87,6 +98,7 @@ class AssociationRules(View):
 
         discount = request.POST['discount']
 
+        #adding it to the discount table in the database.
         discount = Discount(left_item1 = left_item1,left_item2 = left_item2,right_item1 = right_item1,right_item2 = right_item2,discount_percent = discount)
         discount.save()
 
@@ -95,7 +107,7 @@ class AssociationRules(View):
 
 
 
-
+#This class is used to change the configurations of the client code and the website.
 class ConfigureSettings(View):
     def get(self, request, *args, **kwargs):
         conf_object = Configuration.objects.first()

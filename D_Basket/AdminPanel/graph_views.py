@@ -9,10 +9,13 @@ import seaborn
 from .models import Statistic
 from .graph_forms import BatchStatisticsForm,BatchCompareForm
 
+
+#This method loads the main graph page.It takes the type of graph as a parameter.Current the only type is "bar".
 def graph_main(request,type):
     return render(request,'AdminPanel/graphs.html',{'type':type})
 
 
+#This method generates bar chart of one,two or three itemset in imageview.
 def barChart(request, itemset):
     fig = Figure()
     fig.set_size_inches(15, 6, forward=True)
@@ -26,6 +29,7 @@ def barChart(request, itemset):
     if int(itemset) == 1:
         final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_one_itemset.csv")
         final_itemset.T.plot.bar(ax=ax)
+        #T stands for transpose.It is used because final_itemset is a series.
 
     if int(itemset) == 2:
         final_itemset = pd.Series.from_csv(settings.BASE_DIR+"/final_two_itemset.csv")
@@ -42,6 +46,7 @@ def barChart(request, itemset):
     canvas.print_png(response)
     return response
 
+#This class is used to generate barcharts or statitics batchwise.
 class BatchStatistics(View):
     def get(self, request, *args, **kwargs):
         batch_form = BatchStatisticsForm()
@@ -54,6 +59,7 @@ class BatchStatistics(View):
             return render(request,'AdminPanel/batchwise_statistics.html',{'batch_form' : batch_form, 'batch_number': batch_number})
 
 
+#This class is used to compare two batches.
 class BatchCompare(View):
     def get(self, request, *args, **kwargs):
         batch_compare_form = BatchCompareForm()
@@ -72,6 +78,7 @@ class BatchCompare(View):
             }
             return render(request,'AdminPanel/compare_local_batch.html',context)
 
+#This method is used to generate barchart for a particular batch.
 def batchwise_barchart(request, itemset_type, batch_number):
     fig = Figure()
     fig.set_size_inches(15, 6, forward=True)

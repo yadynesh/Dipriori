@@ -5,12 +5,14 @@ from . import views,customer_views,item_views,transaction_views,graph_views,disc
 app_name = 'adminpanel'
 
 urlpatterns = [
-   #/emp/customer/list
+   #/emp/home
    url(r'^home', login_required(views.AdminFormView.as_view()) , name='home'),
+
+   #/emp/reset
    url(r'^reset', login_required(views.reset) , name='reset'),
 
 
-
+   #/emp/customer/list
    url(r'^customer/list/$', login_required(customer_views.CustomerListView.as_view()) , name='list-customers'),
 
    #/emp/customer/add
@@ -57,17 +59,19 @@ urlpatterns = [
 
 
 
-
+   #/emp/graph/<type> Generate graph for one two and three itemset
    url(r'^graph/(?P<type>\w+)/$', login_required(graph_views.graph_main) , name = 'generate-graph'),
+
+   #/emp/graph/bar/batch
+   url(r'^graph/bar/batch/$', login_required(graph_views.BatchStatistics.as_view()) , name = 'generate-batchwise-statistics'),
+
+   #/emp/graph/bar/batch/compare
+   url(r'^graph/bar/batch/compare/$', login_required(graph_views.BatchCompare.as_view()) , name = 'batchwise-compare'),
 
    #/emp/graph/bar/<itemset>
    url(r'^graph/bar/(?P<itemset>[0-9]+)/$', login_required(graph_views.barChart) , name = 'generate-barchart'),
 
-   url(r'^graph/bar/batch/$', login_required(graph_views.BatchStatistics.as_view()) , name = 'generate-batchwise-statistics'),
-
-   url(r'^graph/bar/batch/compare/$', login_required(graph_views.BatchCompare.as_view()) , name = 'batchwise-compare'),
-
-   #/emp/graph/bar/<item_type>/<batch_number>
+   #/emp/graph/bar/<item_type>/<batch_number> item_type can be local, localfrequent and globalfrequent for one itemset
    url(r'^graph/bar/(?P<itemset_type>\w+)/(?P<batch_number>[0-9]+)/$', login_required(graph_views.batchwise_barchart) , name = 'generate-batchwise-barchart'),
 
 
